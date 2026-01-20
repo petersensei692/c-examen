@@ -71,15 +71,10 @@ namespace Vente_Billets.Formulaires
 
         private void dgvPlace_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = dgvPlace.Rows[e.RowIndex];
-
-            txtIdPlace.Text = row.Cells["id"].Value.ToString(); // ID
-           cmbCatPlace.Text = row.Cells["typePlace"].Value.ToString();
-            txtNumPlace.Text = row.Cells["numero"].Value.ToString();
-            cmbSallePlace.SelectedValue = row.Cells["refSalle"].Value;
-            
-            txtIdPlace.Visible = true;
-            id.Visible = true;
+            if (e.RowIndex >= 0)
+            {
+                dgvPlace_CellClick(sender, e);
+            }
         }
 
         private void txtRecherche_TextChanged(object sender, EventArgs e)
@@ -89,15 +84,45 @@ namespace Vente_Billets.Formulaires
 
         private void dgvPlace_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = dgvPlace.Rows[e.RowIndex];
+            if (e.RowIndex >= 0 && e.RowIndex < dgvPlace.Rows.Count)
+            {
+                try
+                {
+                    DataGridViewRow row = dgvPlace.Rows[e.RowIndex];
 
-            txtIdPlace.Text = row.Cells["Numero"].Value.ToString(); // ID
-            cmbCatPlace.Text = row.Cells["Categorie"].Value.ToString();
-            txtNumPlace.Text = row.Cells["Numero_place"].Value.ToString();
-            cmbSallePlace.Text = row.Cells["Salle"].Value.ToString();
+                    // Récupérer l'ID depuis la colonne "id"
+                    if (dgvPlace.Columns.Contains("id") && row.Cells["id"].Value != null && row.Cells["id"].Value != DBNull.Value)
+                        txtIdPlace.Text = row.Cells["id"].Value.ToString();
+                    
+                    if (dgvPlace.Columns.Contains("refCategorie") && row.Cells["refCategorie"].Value != null && row.Cells["refCategorie"].Value != DBNull.Value)
+                    {
+                        string catId = row.Cells["refCategorie"].Value.ToString();
+                        cmbCatPlace.Text = ClsDict.Instance.GetNomDepuisId("tCategorie", "id", "designation", catId);
+                    }
+                    else if (dgvPlace.Columns.Contains("Categorie") && row.Cells["Categorie"].Value != null && row.Cells["Categorie"].Value != DBNull.Value)
+                        cmbCatPlace.Text = row.Cells["Categorie"].Value.ToString();
+                    
+                    if (dgvPlace.Columns.Contains("numPlace") && row.Cells["numPlace"].Value != null && row.Cells["numPlace"].Value != DBNull.Value)
+                        txtNumPlace.Text = row.Cells["numPlace"].Value.ToString();
+                    else if (dgvPlace.Columns.Contains("Numero_place") && row.Cells["Numero_place"].Value != null && row.Cells["Numero_place"].Value != DBNull.Value)
+                        txtNumPlace.Text = row.Cells["Numero_place"].Value.ToString();
+                    
+                    if (dgvPlace.Columns.Contains("refSalle") && row.Cells["refSalle"].Value != null && row.Cells["refSalle"].Value != DBNull.Value)
+                    {
+                        string salleId = row.Cells["refSalle"].Value.ToString();
+                        cmbSallePlace.Text = ClsDict.Instance.GetNomDepuisId("tSalle", "id", "nomSalle", salleId);
+                    }
+                    else if (dgvPlace.Columns.Contains("Salle") && row.Cells["Salle"].Value != null && row.Cells["Salle"].Value != DBNull.Value)
+                        cmbSallePlace.Text = row.Cells["Salle"].Value.ToString();
 
-            txtIdPlace.Visible = true;
-            id.Visible = true;
+                    txtIdPlace.Visible = true;
+                    id.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors du chargement des données : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void guna2PictureBox1_Click(object sender, EventArgs e)

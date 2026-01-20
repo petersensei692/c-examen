@@ -57,20 +57,20 @@ namespace Vente_Billets.Formulaires
             this.txtIdSalle.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtIdSalle.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtIdSalle.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtIdSalle.Location = new System.Drawing.Point(550, 260);
-            this.txtIdSalle.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.txtIdSalle.Location = new System.Drawing.Point(729, 160);
+            this.txtIdSalle.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtIdSalle.Name = "txtIdSalle";
             this.txtIdSalle.PlaceholderText = "";
             this.txtIdSalle.SelectedText = "";
-            this.txtIdSalle.Size = new System.Drawing.Size(250, 38);
+            this.txtIdSalle.Size = new System.Drawing.Size(398, 30);
             this.txtIdSalle.TabIndex = 76;
             // 
             // lblId
             // 
             this.lblId.AutoSize = true;
-            this.lblId.Location = new System.Drawing.Point(459, 280);
+            this.lblId.Location = new System.Drawing.Point(729, 140);
             this.lblId.Name = "lblId";
-            this.lblId.Size = new System.Drawing.Size(21, 20);
+            this.lblId.Size = new System.Drawing.Size(18, 16);
             this.lblId.TabIndex = 75;
             this.lblId.Text = "id";
             // 
@@ -85,20 +85,20 @@ namespace Vente_Billets.Formulaires
             this.txtAdresse.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtAdresse.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtAdresse.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtAdresse.Location = new System.Drawing.Point(119, 262);
-            this.txtAdresse.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.txtAdresse.Location = new System.Drawing.Point(231, 160);
+            this.txtAdresse.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtAdresse.Name = "txtAdresse";
             this.txtAdresse.PlaceholderText = "";
             this.txtAdresse.SelectedText = "";
-            this.txtAdresse.Size = new System.Drawing.Size(250, 38);
+            this.txtAdresse.Size = new System.Drawing.Size(410, 30);
             this.txtAdresse.TabIndex = 69;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(29, 280);
+            this.label13.Location = new System.Drawing.Point(228, 140);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(68, 20);
+            this.label13.Size = new System.Drawing.Size(58, 16);
             this.label13.TabIndex = 68;
             this.label13.Text = "Adresse";
             // 
@@ -113,20 +113,20 @@ namespace Vente_Billets.Formulaires
             this.txtNbrePlaces.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNbrePlaces.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtNbrePlaces.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtNbrePlaces.Location = new System.Drawing.Point(551, 163);
-            this.txtNbrePlaces.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.txtNbrePlaces.Location = new System.Drawing.Point(729, 90);
+            this.txtNbrePlaces.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtNbrePlaces.Name = "txtNbrePlaces";
             this.txtNbrePlaces.PlaceholderText = "";
             this.txtNbrePlaces.SelectedText = "";
-            this.txtNbrePlaces.Size = new System.Drawing.Size(250, 38);
+            this.txtNbrePlaces.Size = new System.Drawing.Size(398, 30);
             this.txtNbrePlaces.TabIndex = 65;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(459, 182);
+            this.label9.Location = new System.Drawing.Point(729, 70);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 20);
+            this.label9.Size = new System.Drawing.Size(49, 16);
             this.label9.TabIndex = 64;
             this.label9.Text = "Places";
             // 
@@ -141,94 +141,112 @@ namespace Vente_Billets.Formulaires
             this.txtNomSalle.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNomSalle.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtNomSalle.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtNomSalle.Location = new System.Drawing.Point(119, 163);
-            this.txtNomSalle.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.txtNomSalle.Location = new System.Drawing.Point(231, 90);
+            this.txtNomSalle.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtNomSalle.Name = "txtNomSalle";
             this.txtNomSalle.PlaceholderText = "";
             this.txtNomSalle.SelectedText = "";
-            this.txtNomSalle.Size = new System.Drawing.Size(250, 38);
+            this.txtNomSalle.Size = new System.Drawing.Size(410, 30);
             this.txtNomSalle.TabIndex = 63;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(29, 183);
+            this.label8.Location = new System.Drawing.Point(228, 70);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(42, 20);
+            this.label8.Size = new System.Drawing.Size(36, 16);
             this.label8.TabIndex = 62;
             this.label8.Text = "Nom";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 26F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(177, 14);
+            this.label7.BackColor = System.Drawing.Color.White;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(0, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(784, 70);
+            this.label7.Size = new System.Drawing.Size(1369, 50);
             this.label7.TabIndex = 61;
             this.label7.Text = "ENREGISTREMENT DES SALLES";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BtnDeleteAgent
             // 
+            this.BtnDeleteAgent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnDeleteAgent.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.BtnDeleteAgent.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.BtnDeleteAgent.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.BtnDeleteAgent.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnDeleteAgent.FillColor = System.Drawing.Color.Black;
             this.BtnDeleteAgent.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.BtnDeleteAgent.ForeColor = System.Drawing.Color.White;
-            this.BtnDeleteAgent.Location = new System.Drawing.Point(846, 934);
+            this.BtnDeleteAgent.Location = new System.Drawing.Point(900, 693);
+            this.BtnDeleteAgent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnDeleteAgent.Name = "BtnDeleteAgent";
-            this.BtnDeleteAgent.Size = new System.Drawing.Size(180, 45);
+            this.BtnDeleteAgent.Size = new System.Drawing.Size(227, 36);
             this.BtnDeleteAgent.TabIndex = 79;
             this.BtnDeleteAgent.Text = "Delete";
             this.BtnDeleteAgent.Click += new System.EventHandler(this.BtnDeleteAgent_Click);
             // 
             // btnUpdateAgent
             // 
+            this.btnUpdateAgent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnUpdateAgent.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnUpdateAgent.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnUpdateAgent.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnUpdateAgent.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnUpdateAgent.FillColor = System.Drawing.Color.Black;
             this.btnUpdateAgent.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnUpdateAgent.ForeColor = System.Drawing.Color.White;
-            this.btnUpdateAgent.Location = new System.Drawing.Point(528, 934);
+            this.btnUpdateAgent.Location = new System.Drawing.Point(569, 693);
+            this.btnUpdateAgent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnUpdateAgent.Name = "btnUpdateAgent";
-            this.btnUpdateAgent.Size = new System.Drawing.Size(180, 45);
+            this.btnUpdateAgent.Size = new System.Drawing.Size(236, 36);
             this.btnUpdateAgent.TabIndex = 78;
             this.btnUpdateAgent.Text = "Update";
             this.btnUpdateAgent.Click += new System.EventHandler(this.btnUpdateAgent_Click);
             // 
             // BtnAjouterAgent
             // 
+            this.BtnAjouterAgent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.BtnAjouterAgent.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.BtnAjouterAgent.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.BtnAjouterAgent.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.BtnAjouterAgent.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnAjouterAgent.FillColor = System.Drawing.Color.Black;
             this.BtnAjouterAgent.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.BtnAjouterAgent.ForeColor = System.Drawing.Color.White;
-            this.BtnAjouterAgent.Location = new System.Drawing.Point(219, 934);
+            this.BtnAjouterAgent.Location = new System.Drawing.Point(231, 693);
+            this.BtnAjouterAgent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnAjouterAgent.Name = "BtnAjouterAgent";
-            this.BtnAjouterAgent.Size = new System.Drawing.Size(180, 45);
+            this.BtnAjouterAgent.Size = new System.Drawing.Size(218, 36);
             this.BtnAjouterAgent.TabIndex = 77;
             this.BtnAjouterAgent.Text = "Ajouter";
             this.BtnAjouterAgent.Click += new System.EventHandler(this.BtnAjouterAgent_Click);
             // 
             // dgvSalle
             // 
+            this.dgvSalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvSalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvSalle.BackgroundColor = System.Drawing.Color.White;
+            this.dgvSalle.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvSalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSalle.GridColor = System.Drawing.Color.White;
-            this.dgvSalle.Location = new System.Drawing.Point(33, 489);
+            this.dgvSalle.Location = new System.Drawing.Point(336, 254);
+            this.dgvSalle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvSalle.Name = "dgvSalle";
             this.dgvSalle.RowHeadersWidth = 62;
             this.dgvSalle.RowTemplate.Height = 28;
-            this.dgvSalle.Size = new System.Drawing.Size(1140, 412);
+            this.dgvSalle.Size = new System.Drawing.Size(687, 370);
             this.dgvSalle.TabIndex = 82;
             // 
             // txtRecherche
             // 
+            this.txtRecherche.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRecherche.BorderRadius = 20;
             this.txtRecherche.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtRecherche.DefaultText = "";
@@ -240,22 +258,22 @@ namespace Vente_Billets.Formulaires
             this.txtRecherche.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRecherche.ForeColor = System.Drawing.Color.Black;
             this.txtRecherche.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtRecherche.Location = new System.Drawing.Point(33, 395);
-            this.txtRecherche.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.txtRecherche.Location = new System.Drawing.Point(20, 210);
+            this.txtRecherche.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtRecherche.Name = "txtRecherche";
             this.txtRecherche.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.txtRecherche.PlaceholderText = "Recherche";
             this.txtRecherche.SelectedText = "";
-            this.txtRecherche.Size = new System.Drawing.Size(462, 45);
+            this.txtRecherche.Size = new System.Drawing.Size(1329, 36);
             this.txtRecherche.TabIndex = 83;
             this.txtRecherche.TextChanged += new System.EventHandler(this.txtRecherche_TextChanged);
             // 
             // FrmSalle
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1385, 1047);
+            this.ClientSize = new System.Drawing.Size(1369, 809);
             this.Controls.Add(this.txtRecherche);
             this.Controls.Add(this.dgvSalle);
             this.Controls.Add(this.BtnDeleteAgent);
@@ -270,7 +288,7 @@ namespace Vente_Billets.Formulaires
             this.Controls.Add(this.txtNomSalle);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmSalle";
             this.Text = "FrmSalle";
             this.Load += new System.EventHandler(this.FrmSalle_Load);

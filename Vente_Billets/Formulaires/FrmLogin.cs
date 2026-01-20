@@ -34,37 +34,39 @@ namespace Vente_Billets.Formulaires
 
                 if (agent != null)
                 {
-                    if (ClsDict.Instance.GetRole(login, pwd) == "Gerant")
+                    string role = ClsDict.Instance.GetRole(login, pwd);
+                    FrmDashboard frm = new FrmDashboard();
+                    frm.UserRole = role;
+                    
+                    if (role == "Gerant")
                     {
-                        FrmDashboard frm = new FrmDashboard();
+                        // Tous les boutons sont activés par défaut
                         frm.Show();
-                        
+                        this.Hide();
                     }
-
-                    else if (ClsDict.Instance.GetRole(login, pwd) == "Vendeur")
+                    else if (role == "Vendeur")
                     {
-                        FrmDashboard frm = new FrmDashboard();
+                        // Désactiver les boutons non autorisés
+                        frm.guna2Button1.Enabled = false; // Agents
+                        frm.guna2Button3.Enabled = false; // Salles
+                        frm.guna2Button4.Enabled = false; // Spectacles
+                        frm.guna2Button5.Enabled = false; // Places
+                        frm.guna2Button6.Enabled = false; // Paiement
                         frm.Show();
-                        frm.guna2Button1.Enabled = false;
-                        frm.guna2Button3.Enabled = false;
-                        frm.guna2Button4.Enabled = false;
-                        frm.guna2Button5.Enabled = false;
-                        frm.guna2Button6.Enabled = false;
-                        frm.guna2Button9.Enabled = false;
-                        
+                        this.Hide();
                     }
-                    else if (ClsDict.Instance.GetRole(login, pwd) == "Compable")
+                    else if (role == "Compable")
                     {
-                        FrmDashboard frm = new FrmDashboard();
+                        // Désactiver les boutons non autorisés
+                        frm.guna2Button1.Enabled = false; // Agents
+                        frm.guna2Button2.Enabled = false; // Clients
+                        frm.guna2Button3.Enabled = false; // Salles
+                        frm.guna2Button4.Enabled = false; // Spectacles
+                        frm.guna2Button5.Enabled = false; // Places
+                        frm.guna2Button7.Enabled = false; // Facture
+                        frm.guna2Button8.Enabled = false; // Billets
                         frm.Show();
-                        frm.guna2Button1.Enabled = false;
-                        frm.guna2Button2.Enabled = false;
-                        frm.guna2Button3.Enabled = false;
-                        frm.guna2Button4.Enabled = false;
-                        frm.guna2Button5.Enabled = false;
-                        frm.guna2Button8.Enabled = false;
-                        frm.guna2Button9.Enabled = false;
-                        frm.guna2Button7.Enabled = false;
+                        this.Hide();
                     }
                     else
                     {
@@ -73,7 +75,7 @@ namespace Vente_Billets.Formulaires
                 }
                 else
                 {
-                    MessageBox.Show("Les champs sont vides", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             

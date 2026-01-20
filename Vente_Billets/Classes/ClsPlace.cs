@@ -32,7 +32,9 @@ namespace Vente_Billets.Classes
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(100, 88, 255); // ou une autre couleur
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgv.DataSource = ClsDict.Instance.loadData("tPlace");
+            // Utiliser la vue Affichez_Place pour être cohérent avec le code de CellClick
+            dgv.DataSource = ClsDict.Instance.loadData("Affichez_Place");
+            
             txtId.Visible = true;
             lblId.Visible = true;
             ClsDict.Instance.loadCombo("tSalle", "nomSalle", cmb);

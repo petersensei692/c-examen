@@ -17,6 +17,7 @@ namespace Vente_Billets.Classes
         string noms;
         string contact;
         string fonction;
+        string role;
         string username;
         string password;
         string refSalle;
@@ -25,6 +26,7 @@ namespace Vente_Billets.Classes
         public string Noms { get => noms; set => noms = value; }
         public string Contact { get => contact; set => contact = value; }
         public string Fonction { get => fonction; set => fonction = value; }
+        public string Role { get => role; set => role = value; }
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }
         public string RefSalle { get => refSalle; set => refSalle = value; }
@@ -39,7 +41,8 @@ namespace Vente_Billets.Classes
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(100, 88, 255); // ou une autre couleur
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgv.DataSource = ClsDict.Instance.loadData("tAgents");
+            // Utiliser la vue Affichez_Agent pour être cohérent avec le code de CellClick
+            dgv.DataSource = ClsDict.Instance.loadData("Affichez_Agent");
             txtId.Visible = true;
             lblId.Visible = true;
             ClsDict.Instance.loadCombo("tSalle", "nomSalle", cmb);

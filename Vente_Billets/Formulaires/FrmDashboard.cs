@@ -12,13 +12,12 @@ namespace Vente_Billets.Formulaires
 {
     public partial class FrmDashboard : Form
     {
+        public string UserRole { get; set; } = "";
+
         public FrmDashboard()
         {
             InitializeComponent();
         }
-
-        private string texteComplet = "Bienvenue dans notre application de gestion de la vente des billets d'entree.";
-        private int indexLettre = 0;
 
         //private void ChargerFormulaire(Form form)
         //{
@@ -46,45 +45,42 @@ namespace Vente_Billets.Formulaires
             form.Dock = DockStyle.Fill;
 
             panelAffichage.Controls.Add(form);
-            form.StartPosition = FormStartPosition.Manual;
-            form.Location = new Point(
-                (panelAffichage.Width - form.Width) / 2,
-                (panelAffichage.Height - form.Height) / 2
-            );
-
             form.Show();
         }
 
 
-        private void timerBienvenue_Tick(object sender, EventArgs e)
-        {
-            if(indexLettre < texteComplet.Length)
-            {
-                lblBienvenue.Text += texteComplet[indexLettre];
-                indexLettre++;
-            }
-            else
-            {
-                timerBienvenue.Stop();
-            }
-        }
 
         private void FrmDashboard_Load(object sender, EventArgs e)
         {
-            lblBienvenue.Text = "";
-            indexLettre = 0;
+            panelAffichage.Visible = true;
 
-            lblBienvenue.Font = new Font("Segoe UI", 26, FontStyle.Italic);
-            lblBienvenue.ForeColor = Color.FromArgb(91, 148, 255);
-            lblBienvenue.TextAlignment = ContentAlignment.MiddleCenter;
-            //lblBienvenue.Left = (this.ClientSize.Width = lblBienvenue.Width) / 2;
-            lblBienvenue.Top = (this.ClientSize.Height - lblBienvenue.Height) / 2;
-            timerBienvenue.Interval = 100;
-            timerBienvenue.Start();
+            // Charger automatiquement le premier formulaire autorisé selon le rôle
+            ChargerPremierFormulaireAutorise();
+        }
 
-            panelAffichage.Visible = false;
-
-            this.WindowState = FormWindowState.Maximized;
+        private void ChargerPremierFormulaireAutorise()
+        {
+            // Déterminer le premier formulaire autorisé selon le rôle
+            if (UserRole == "Gerant")
+            {
+                // Gerant : tous les boutons sont activés, commencer par Agents
+                ChargerFormulaire(new FrmAgent());
+            }
+            else if (UserRole == "Vendeur")
+            {
+                // Vendeur : seulement Clients, Facture, Billets sont activés, commencer par Clients
+                ChargerFormulaire(new FrmClient());
+            }
+            else if (UserRole == "Compable")
+            {
+                // Compable : seulement Paiement est activé
+                ChargerFormulaire(new FrmPaiement());
+            }
+            else
+            {
+                // Par défaut, charger Clients
+                ChargerFormulaire(new FrmClient());
+            }
         }
 
         private void FrmDashboard_Shown(object sender, EventArgs e)
@@ -148,10 +144,6 @@ namespace Vente_Billets.Formulaires
 
         }
 
-        private void guna2Button9_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void panelAffichage_Paint(object sender, PaintEventArgs e)
         {

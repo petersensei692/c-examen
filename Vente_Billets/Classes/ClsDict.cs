@@ -69,7 +69,7 @@ namespace Vente_Billets.Classes
 
         public void SaveUpdateAgents(ClsAgents Ag)
         {
-            string query = @"EXEC sp_SaveOrUpdateAgent_Flexible @id, @noms, @contact, @fonction, @username, @pwd, @refSalle";
+            string query = @"EXEC sp_SaveOrUpdateAgent_Flexible @id, @noms, @contact, @fonction, @role, @username, @pwd, @refSalle";
 
             using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
             {
@@ -77,6 +77,7 @@ namespace Vente_Billets.Classes
                 cmd.Parameters.AddWithValue("@id", Ag.Id);
                 cmd.Parameters.AddWithValue("@noms", Ag.Noms);
                 cmd.Parameters.AddWithValue("@fonction", Ag.Fonction);
+                cmd.Parameters.AddWithValue("@role", Ag.Role ?? Ag.Fonction); // Utilise Role si disponible, sinon Fonction comme fallback
                 cmd.Parameters.AddWithValue("@contact", Ag.Contact);
                 cmd.Parameters.AddWithValue("@username", Ag.Username);
                 cmd.Parameters.AddWithValue("@pwd", Ag.Password);
@@ -251,7 +252,7 @@ namespace Vente_Billets.Classes
 
         public void SetStatut(int id)
         {
-            string query = @"UPDATE tBillet SET statut = 1 WHERE id = @id";
+            string query = @"UPDATE tBillets SET statut = 1 WHERE id = @id";
 
             using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
             {
@@ -263,7 +264,7 @@ namespace Vente_Billets.Classes
 
         public bool GetStatut(int id)
         {
-            string query = @"SELECT statut FROM tBillet WHERE id = @id";
+            string query = @"SELECT statut FROM tBillets WHERE id = @id";
 
             using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
             {
@@ -287,7 +288,7 @@ namespace Vente_Billets.Classes
 
         public string GetRole(string username, string pwd)
         {
-            string query = @"SELECT fonction FROM tAgents WHERE username = @username AND pwd = @pwd";
+            string query = @"SELECT role FROM tAgents WHERE username = @username AND [password] = @pwd";
 
             using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
             {
@@ -423,7 +424,7 @@ namespace Vente_Billets.Classes
         {
 
             if (con.State != ConnectionState.Open) con.Open();
-            string query = "SELECT * FROM tAgents WHERE username = @username AND password = @mdp";
+            string query = "SELECT * FROM tAgents WHERE username = @username AND [password] = @mdp";
 
             using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
             {
@@ -441,7 +442,7 @@ namespace Vente_Billets.Classes
                             Contact = reader["contact"].ToString(),
                             Fonction = reader["fonction"].ToString(),
                             Username = reader["username"].ToString(),
-                            Password = reader["pwd"].ToString(),
+                            Password = reader["password"].ToString(),
                             RefSalle = reader["refSalle"].ToString(),
                             
                         };

@@ -98,13 +98,16 @@ namespace Vente_Billets.Formulaires
 
         private void BtnDeleteAgent_Click(object sender, EventArgs e)
         {
-            InsertUpdateAgent(2);
+            InsertUpdateAgent(3);
             CleanTextAgent();
         }
 
         private void dgvAgents_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            if (e.RowIndex >= 0)
+            {
+                dgvAgents_CellClick_1(sender, e);
+            }
         }
 
         private void dgvAgents_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -114,18 +117,42 @@ namespace Vente_Billets.Formulaires
 
         private void dgvAgents_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = dgvAgents.Rows[e.RowIndex];
+            if (e.RowIndex >= 0 && e.RowIndex < dgvAgents.Rows.Count)
+            {
+                try
+                {
+                    DataGridViewRow row = dgvAgents.Rows[e.RowIndex];
 
-            txtIdAgents.Text = row.Cells["numero"].Value.ToString(); // ID
-            txtNomAgent.Text = row.Cells["Noms"].Value.ToString();
-            txtContactAgent.Text = row.Cells["Telephone"].Value.ToString();
-            txtFoctionAgent.Text = row.Cells["Fonction"].Value.ToString();
-            txtUserNameAgent.Text = row.Cells["Username"].Value.ToString();
-            txtPasswordAgents.Text = row.Cells["Mot de Passe"].Value.ToString();
-            cmbSalleAgent.Text = row.Cells["Salle"].Value.ToString();
+                    // Vérifier que les colonnes existent avant d'y accéder
+                    if (row.Cells["numero"] != null && row.Cells["numero"].Value != null)
+                        txtIdAgents.Text = row.Cells["numero"].Value.ToString();
+                    
+                    if (row.Cells["Noms"] != null && row.Cells["Noms"].Value != null)
+                        txtNomAgent.Text = row.Cells["Noms"].Value.ToString();
+                    
+                    if (row.Cells["Telephone"] != null && row.Cells["Telephone"].Value != null)
+                        txtContactAgent.Text = row.Cells["Telephone"].Value.ToString();
+                    
+                    if (row.Cells["Fonction"] != null && row.Cells["Fonction"].Value != null)
+                        txtFoctionAgent.Text = row.Cells["Fonction"].Value.ToString();
+                    
+                    if (row.Cells["Username"] != null && row.Cells["Username"].Value != null)
+                        txtUserNameAgent.Text = row.Cells["Username"].Value.ToString();
+                    
+                    if (row.Cells["Mot de Passe"] != null && row.Cells["Mot de Passe"].Value != null)
+                        txtPasswordAgents.Text = row.Cells["Mot de Passe"].Value.ToString();
+                    
+                    if (row.Cells["Salle"] != null && row.Cells["Salle"].Value != null)
+                        cmbSalleAgent.Text = row.Cells["Salle"].Value.ToString();
 
-            txtIdAgents.Visible = true;
-            id.Visible = true;
+                    txtIdAgents.Visible = true;
+                    id.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors du chargement des données : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void txtRecherche_SelectedIndexChanged(object sender, EventArgs e)

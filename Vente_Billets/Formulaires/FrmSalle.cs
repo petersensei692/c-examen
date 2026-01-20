@@ -75,15 +75,32 @@ namespace Vente_Billets.Formulaires
 
         private void dgvSalle_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = dgvSalle.Rows[e.RowIndex];
+            if (e.RowIndex >= 0 && e.RowIndex < dgvSalle.Rows.Count)
+            {
+                try
+                {
+                    DataGridViewRow row = dgvSalle.Rows[e.RowIndex];
 
-            txtIdSalle.Text = row.Cells["id"].Value.ToString(); // ID
-            txtNomSalle.Text = row.Cells["nomSalle"].Value.ToString();
-            txtAdresse.Text = row.Cells["adresse"].Value.ToString();
-            txtNbrePlaces.Text = row.Cells["nombrePlace"].Value.ToString();
+                    if (dgvSalle.Columns.Contains("id") && row.Cells["id"].Value != null && row.Cells["id"].Value != DBNull.Value)
+                        txtIdSalle.Text = row.Cells["id"].Value.ToString();
+                    
+                    if (dgvSalle.Columns.Contains("nomSalle") && row.Cells["nomSalle"].Value != null && row.Cells["nomSalle"].Value != DBNull.Value)
+                        txtNomSalle.Text = row.Cells["nomSalle"].Value.ToString();
+                    
+                    if (dgvSalle.Columns.Contains("adresse") && row.Cells["adresse"].Value != null && row.Cells["adresse"].Value != DBNull.Value)
+                        txtAdresse.Text = row.Cells["adresse"].Value.ToString();
+                    
+                    if (dgvSalle.Columns.Contains("nombrePlace") && row.Cells["nombrePlace"].Value != null && row.Cells["nombrePlace"].Value != DBNull.Value)
+                        txtNbrePlaces.Text = row.Cells["nombrePlace"].Value.ToString();
 
-            txtIdSalle.Visible = true;
-            lblId.Visible = true;
+                    txtIdSalle.Visible = true;
+                    lblId.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors du chargement des données : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void txtRecherche_TextChanged(object sender, EventArgs e)

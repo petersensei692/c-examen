@@ -35,7 +35,8 @@ namespace Vente_Billets.Classes
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(100, 88, 255); // ou une autre couleur
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgv.DataSource = ClsDict.Instance.loadData("tPaiement");
+            // Utiliser la vue Affichez_Paiement pour être cohérent avec le code de CellClick
+            dgv.DataSource = ClsDict.Instance.loadData("Affichez_Paiement");
             string[] modePaiement = { "Cash", "Check", "Mobile Money" };
             cmb.Items.AddRange(modePaiement);
             txtId.Visible = true;

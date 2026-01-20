@@ -73,7 +73,10 @@ namespace Vente_Billets.Formulaires
 
         private void dgvSpectacle_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            if (e.RowIndex >= 0)
+            {
+                dgvSpectacle_CellClick_1(sender, e);
+            }
         }
 
         private void dgvAgents_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -88,18 +91,116 @@ namespace Vente_Billets.Formulaires
 
         private void dgvSpectacle_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = dgvSpectacle.Rows[e.RowIndex];
+            if (e.RowIndex >= 0 && e.RowIndex < dgvSpectacle.Rows.Count)
+            {
+                try
+                {
+                    DataGridViewRow row = dgvSpectacle.Rows[e.RowIndex];
 
-            txtIdSpectacle.Text = row.Cells["Numero"].Value.ToString(); // ID
-            DateSpectacle.Text = row.Cells["Date du Spectacle"].Value.ToString();
-            txtNbrBillet.Text = row.Cells["Nombre Total Billet"].Value.ToString();
-            txtDuree.Text = row.Cells["Duree du Spectacle en h"].Value.ToString();
-            txtDescSpect.Text = row.Cells["Description"].Value.ToString();
-            cmbSpectacle.Text = row.Cells["Salle"].Value.ToString();
-            txtTitre.Text = row.Cells["titre"].Value.ToString();
+                    // Récupérer l'ID depuis la colonne "id"
+                    if (dgvSpectacle.Columns.Contains("id") && row.Cells["id"].Value != null && row.Cells["id"].Value != DBNull.Value)
+                        txtIdSpectacle.Text = row.Cells["id"].Value.ToString();
+                    
+                    if (dgvSpectacle.Columns.Contains("dateSpectacle") && row.Cells["dateSpectacle"].Value != null && row.Cells["dateSpectacle"].Value != DBNull.Value)
+                        DateSpectacle.Text = row.Cells["dateSpectacle"].Value.ToString();
+                    else if (dgvSpectacle.Columns.Contains("Date du Spectacle") && row.Cells["Date du Spectacle"].Value != null && row.Cells["Date du Spectacle"].Value != DBNull.Value)
+                        DateSpectacle.Text = row.Cells["Date du Spectacle"].Value.ToString();
+                    
+                    if (dgvSpectacle.Columns.Contains("nombreBillet") && row.Cells["nombreBillet"].Value != null && row.Cells["nombreBillet"].Value != DBNull.Value)
+                        txtNbrBillet.Text = row.Cells["nombreBillet"].Value.ToString();
+                    else if (dgvSpectacle.Columns.Contains("Nombre Total Billet") && row.Cells["Nombre Total Billet"].Value != null && row.Cells["Nombre Total Billet"].Value != DBNull.Value)
+                        txtNbrBillet.Text = row.Cells["Nombre Total Billet"].Value.ToString();
+                    
+                    if (dgvSpectacle.Columns.Contains("duree") && row.Cells["duree"].Value != null && row.Cells["duree"].Value != DBNull.Value)
+                        txtDuree.Text = row.Cells["duree"].Value.ToString();
+                    else if (dgvSpectacle.Columns.Contains("Duree du Spectacle en h") && row.Cells["Duree du Spectacle en h"].Value != null && row.Cells["Duree du Spectacle en h"].Value != DBNull.Value)
+                        txtDuree.Text = row.Cells["Duree du Spectacle en h"].Value.ToString();
+                    
+                    if (dgvSpectacle.Columns.Contains("descSpect") && row.Cells["descSpect"].Value != null && row.Cells["descSpect"].Value != DBNull.Value)
+                        txtDescSpect.Text = row.Cells["descSpect"].Value.ToString();
+                    else if (dgvSpectacle.Columns.Contains("Description") && row.Cells["Description"].Value != null && row.Cells["Description"].Value != DBNull.Value)
+                        txtDescSpect.Text = row.Cells["Description"].Value.ToString();
+                    
+                    if (dgvSpectacle.Columns.Contains("refSalle") && row.Cells["refSalle"].Value != null && row.Cells["refSalle"].Value != DBNull.Value)
+                    {
+                        // Si c'est un ID, récupérer le nom de la salle
+                        string salleId = row.Cells["refSalle"].Value.ToString();
+                        cmbSpectacle.Text = ClsDict.Instance.GetNomDepuisId("tSalle", "id", "nomSalle", salleId);
+                    }
+                    else if (dgvSpectacle.Columns.Contains("Salle") && row.Cells["Salle"].Value != null && row.Cells["Salle"].Value != DBNull.Value)
+                        cmbSpectacle.Text = row.Cells["Salle"].Value.ToString();
+                    
+                    if (dgvSpectacle.Columns.Contains("titre") && row.Cells["titre"].Value != null && row.Cells["titre"].Value != DBNull.Value)
+                        txtTitre.Text = row.Cells["titre"].Value.ToString();
 
-            txtIdSpectacle.Visible = true;
-            lblId.Visible = true;
+                    txtIdSpectacle.Visible = true;
+                    lblId.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors du chargement des données : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DateSpectacle_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDuree_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbSpectacle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTitre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDescSpect_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNbrBillet_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

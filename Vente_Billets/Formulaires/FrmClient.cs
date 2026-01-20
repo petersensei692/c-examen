@@ -75,7 +75,10 @@ namespace Vente_Billets.Formulaires
 
         private void dgvClient_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            if (e.RowIndex >= 0)
+            {
+                dgvClient_CellClick_1(sender, e);
+            }
         }
 
         private void CleanTextClient()
@@ -91,17 +94,20 @@ namespace Vente_Billets.Formulaires
 
         private void dgvClient_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = dgvClient.Rows[e.RowIndex];
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvClient.Rows[e.RowIndex];
 
-            txtId.Text = row.Cells["id"].Value.ToString(); // ID
-            txtNom.Text = row.Cells["noms"].Value.ToString();
-            txtAdress.Text = row.Cells["adresse"].Value.ToString();
-            txtContact.Text = row.Cells["contact"].Value.ToString();
-            NudAge.Text = row.Cells["age"].Value.ToString();
-            cmbGenre.Text = row.Cells["genre"].Value.ToString();
+                txtId.Text = row.Cells["id"].Value.ToString(); // ID
+                txtNom.Text = row.Cells["noms"].Value.ToString();
+                txtAdress.Text = row.Cells["adresse"].Value.ToString();
+                txtContact.Text = row.Cells["contact"].Value.ToString();
+                NudAge.Value = Convert.ToDecimal(row.Cells["age"].Value);
+                cmbGenre.Text = row.Cells["genre"].Value.ToString();
 
-            txtId.Visible = true;
-            lblId.Visible = true;
+                txtId.Visible = true;
+                lblId.Visible = true;
+            }
         }
 
         private void txtRecherche_TextChanged(object sender, EventArgs e)

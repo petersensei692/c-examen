@@ -31,7 +31,8 @@ namespace Vente_Billets.Classes
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(100, 88, 255); // ou une autre couleur
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgv.DataSource = ClsDict.Instance.loadData("tFacture");
+            // Utiliser la vue Affichez_Facture_Complete pour afficher les noms au lieu des IDs
+            dgv.DataSource = ClsDict.Instance.loadData("Affichez_Facture_Complete");
             txtId.Visible = true;
             lblId.Visible = true;
 

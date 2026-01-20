@@ -1,5 +1,4 @@
-﻿using DevExpress.XtraReports.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -63,7 +62,7 @@ namespace Vente_Billets.Formulaires
 
             else if (a == 3)
             {
-                ClsDict.Instance.Deletedata("tBillet", "id", int.Parse(txtIdBillet.Text));
+                ClsDict.Instance.Deletedata("tBillets", "id", int.Parse(txtIdBillet.Text));
                 ClsBillets.ChargementBillets(dgvBillet, txtIdBillet, id);
             }
         }
@@ -89,7 +88,10 @@ namespace Vente_Billets.Formulaires
 
         private void dgvBillet_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            if (e.RowIndex >= 0)
+            {
+                dgvBillet_CellClick_1(sender, e);
+            }
         }
 
         private void txtIdBillet_TextChanged(object sender, EventArgs e)
@@ -154,20 +156,47 @@ namespace Vente_Billets.Formulaires
 
         private void dgvBillet_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = dgvBillet.Rows[e.RowIndex];
+            if (e.RowIndex >= 0 && e.RowIndex < dgvBillet.Rows.Count)
+            {
+                try
+                {
+                    DataGridViewRow row = dgvBillet.Rows[e.RowIndex];
 
-            txtIdBillet.Text = row.Cells["id"].Value.ToString(); // ID
-            DateAchat.Text = row.Cells["dateAchat"].Value.ToString();
-            txtPrix.Text = row.Cells["prix"].Value.ToString();
-            cmbSpectacle.Text = row.Cells["Spectacle"].Value.ToString();
-            cmbPlace.Text = row.Cells["Numero_Place"].Value.ToString();
-            cmbAgent.Text = row.Cells["Agent"].Value.ToString();
-            cmbClient.Text = row.Cells["Client"].Value.ToString();
-            cmbFacture.Text = row.Cells["Numero Facture"].Value.ToString();
-            cmbCatPlace.Text = row.Cells["Categorie_Place"].Value.ToString();
+                    if (row.Cells["id"] != null && row.Cells["id"].Value != null)
+                        txtIdBillet.Text = row.Cells["id"].Value.ToString();
+                    
+                    if (row.Cells["dateAchat"] != null && row.Cells["dateAchat"].Value != null)
+                        DateAchat.Text = row.Cells["dateAchat"].Value.ToString();
+                    
+                    if (row.Cells["prix"] != null && row.Cells["prix"].Value != null)
+                        txtPrix.Text = row.Cells["prix"].Value.ToString();
+                    
+                    if (row.Cells["Spectacle"] != null && row.Cells["Spectacle"].Value != null)
+                        cmbSpectacle.Text = row.Cells["Spectacle"].Value.ToString();
+                    
+                    if (row.Cells["Numero_Place"] != null && row.Cells["Numero_Place"].Value != null)
+                        cmbPlace.Text = row.Cells["Numero_Place"].Value.ToString();
+                    
+                    if (row.Cells["Agent"] != null && row.Cells["Agent"].Value != null)
+                        cmbAgent.Text = row.Cells["Agent"].Value.ToString();
+                    
+                    if (row.Cells["Client"] != null && row.Cells["Client"].Value != null)
+                        cmbClient.Text = row.Cells["Client"].Value.ToString();
+                    
+                    if (row.Cells["Numero Facture"] != null && row.Cells["Numero Facture"].Value != null)
+                        cmbFacture.Text = row.Cells["Numero Facture"].Value.ToString();
+                    
+                    if (row.Cells["Categorie_Place"] != null && row.Cells["Categorie_Place"].Value != null)
+                        cmbCatPlace.Text = row.Cells["Categorie_Place"].Value.ToString();
 
-            txtIdBillet.Visible = true;
-            id.Visible = true;
+                    txtIdBillet.Visible = true;
+                    id.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors du chargement des données : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void CleanTextBillet()
@@ -202,20 +231,37 @@ namespace Vente_Billets.Formulaires
 
         private void guna2Button5_Click(object sender, EventArgs e)
         {
-            if (!ClsDict.Instance.GetStatut(int.Parse(txtIdBillet.Text)))
+            if (string.IsNullOrWhiteSpace(txtIdBillet.Text))
             {
-                ClsDict.Instance.SetStatut(int.Parse(txtIdBillet.Text));
+                MessageBox.Show("Veuillez sélectionner un billet", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int billetId;
+            if (!int.TryParse(txtIdBillet.Text, out billetId))
+            {
+                MessageBox.Show("ID de billet invalide", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!ClsDict.Instance.GetStatut(billetId))
+            {
+                ClsDict.Instance.SetStatut(billetId);
                 ClsBillets.ChargementBillets(dgvBillet, txtIdBillet, id);
             }
             else
             {
-                MessageBox.Show("Billet Vendu");
+                MessageBox.Show("Billet Vendu", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            Billet billet = new Billet(int.Parse(txtIdBillet.Text));
-            ReportPrintTool tool = new ReportPrintTool(billet);
-            tool.ShowPreviewDialog();
+            Billet billet = new Billet(billetId);
+            billet.PrintPreview();
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

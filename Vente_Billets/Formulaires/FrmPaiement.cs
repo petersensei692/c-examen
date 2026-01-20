@@ -1,5 +1,4 @@
-﻿using DevExpress.XtraReports.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -76,7 +75,10 @@ namespace Vente_Billets.Formulaires
 
         private void dgvPaiement_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            if (e.RowIndex >= 0)
+            {
+                dgvPaiement_CellClick_1(sender, e);
+            }
         }
 
         private void txtIdPaiement_TextChanged(object sender, EventArgs e)
@@ -96,24 +98,44 @@ namespace Vente_Billets.Formulaires
 
         private void dgvPaiement_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = dgvPaiement.Rows[e.RowIndex];
+            if (e.RowIndex >= 0 && e.RowIndex < dgvPaiement.Rows.Count)
+            {
+                try
+                {
+                    DataGridViewRow row = dgvPaiement.Rows[e.RowIndex];
 
-            txtIdPaiement.Text = row.Cells["Numero Paiement"].Value.ToString(); // ID
-            DatePaie.Text = row.Cells["Date de Paiement"].Value.ToString();
-            cmbModePaie.Text = row.Cells["Mode de Paiement"].Value.ToString();
-            txtMontant.Text = row.Cells["Montant a Payer"].Value.ToString();
-            cmbAgent.Text = row.Cells["Agent"].Value.ToString();
-            cmbClient.Text = row.Cells["Client"].Value.ToString();
+                    if (row.Cells["Numero Paiement"] != null && row.Cells["Numero Paiement"].Value != null)
+                        txtIdPaiement.Text = row.Cells["Numero Paiement"].Value.ToString();
+                    
+                    if (row.Cells["Date de Paiement"] != null && row.Cells["Date de Paiement"].Value != null)
+                        DatePaie.Text = row.Cells["Date de Paiement"].Value.ToString();
+                    
+                    if (row.Cells["Mode de Paiement"] != null && row.Cells["Mode de Paiement"].Value != null)
+                        cmbModePaie.Text = row.Cells["Mode de Paiement"].Value.ToString();
+                    
+                    if (row.Cells["Montant a Payer"] != null && row.Cells["Montant a Payer"].Value != null)
+                        txtMontant.Text = row.Cells["Montant a Payer"].Value.ToString();
+                    
+                    if (row.Cells["Agent"] != null && row.Cells["Agent"].Value != null)
+                        cmbAgent.Text = row.Cells["Agent"].Value.ToString();
+                    
+                    if (row.Cells["Client"] != null && row.Cells["Client"].Value != null)
+                        cmbClient.Text = row.Cells["Client"].Value.ToString();
 
-            txtIdPaiement.Visible = true;
-            id.Visible = true;
+                    txtIdPaiement.Visible = true;
+                    id.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors du chargement des données : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             Recu recu = new Recu(cmbClient.Text);
-            ReportPrintTool tool = new ReportPrintTool(recu);
-            tool.ShowPreviewDialog();
+            recu.PrintPreview();
         }
 
         private void guna2Button4_Click(object sender, EventArgs e)
@@ -134,8 +156,7 @@ namespace Vente_Billets.Formulaires
         private void guna2Button5_Click(object sender, EventArgs e)
         {
             Recu recu = new Recu(cmbClient.Text);
-            ReportPrintTool tool = new ReportPrintTool(recu);
-            tool.ShowPreviewDialog();
+            recu.PrintPreview();
         }
     }
 }
