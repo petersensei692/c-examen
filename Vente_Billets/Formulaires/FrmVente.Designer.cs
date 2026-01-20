@@ -1,7 +1,7 @@
 ﻿
 namespace Vente_Billets.Formulaires
 {
-    partial class FrmBillet
+    partial class FrmVente
     {
         /// <summary>
         /// Required designer variable.
@@ -49,8 +49,6 @@ namespace Vente_Billets.Formulaires
             this.cmbClient = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbFacture = new Guna.UI2.WinForms.Guna2ComboBox();
             this.dgvBillet = new System.Windows.Forms.DataGridView();
             this.txtRecherche = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
@@ -149,7 +147,7 @@ namespace Vente_Billets.Formulaires
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(387, 70);
+            this.label12.Location = new System.Drawing.Point(387, 72);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(68, 16);
             this.label12.TabIndex = 94;
@@ -160,9 +158,9 @@ namespace Vente_Billets.Formulaires
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(1043, 70);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(77, 16);
+            this.label13.Size = new System.Drawing.Size(118, 16);
             this.label13.TabIndex = 93;
-            this.label13.Text = "Date_Achat";
+            this.label13.Text = "Date du Spectacle";
             this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // label10
@@ -281,33 +279,6 @@ namespace Vente_Billets.Formulaires
             this.guna2ControlBox1.Name = "guna2ControlBox1";
             this.guna2ControlBox1.Size = new System.Drawing.Size(40, 23);
             this.guna2ControlBox1.TabIndex = 110;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(736, 140);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 16);
-            this.label2.TabIndex = 111;
-            this.label2.Text = "Num Facture";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // cmbFacture
-            // 
-            this.cmbFacture.BackColor = System.Drawing.Color.Transparent;
-            this.cmbFacture.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbFacture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFacture.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbFacture.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbFacture.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbFacture.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.cmbFacture.ItemHeight = 30;
-            this.cmbFacture.Location = new System.Drawing.Point(736, 160);
-            this.cmbFacture.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cmbFacture.Name = "cmbFacture";
-            this.cmbFacture.Size = new System.Drawing.Size(267, 36);
-            this.cmbFacture.TabIndex = 112;
-            this.cmbFacture.SelectedIndexChanged += new System.EventHandler(this.cmbFacture_SelectedIndexChanged);
             // 
             // dgvBillet
             // 
@@ -439,7 +410,7 @@ namespace Vente_Billets.Formulaires
             this.guna2Button5.Name = "guna2Button5";
             this.guna2Button5.Size = new System.Drawing.Size(200, 36);
             this.guna2Button5.TabIndex = 142;
-            this.guna2Button5.Text = "Imprimer";
+            this.guna2Button5.Text = "Imprimer Billet";
             this.guna2Button5.Click += new System.EventHandler(this.guna2Button5_Click);
             // 
             // label3
@@ -467,22 +438,18 @@ namespace Vente_Billets.Formulaires
             this.cmbCatPlace.Size = new System.Drawing.Size(253, 36);
             this.cmbCatPlace.TabIndex = 144;
             // 
-            // FrmBillet
+            // FrmVente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1386, 809);
-            this.Controls.Add(this.cmbCatPlace);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.guna2Button5);
             this.Controls.Add(this.guna2Button2);
             this.Controls.Add(this.guna2Button3);
             this.Controls.Add(this.guna2Button4);
             this.Controls.Add(this.txtRecherche);
             this.Controls.Add(this.dgvBillet);
-            this.Controls.Add(this.cmbFacture);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.guna2ControlBox1);
             this.Controls.Add(this.cmbClient);
             this.Controls.Add(this.cmbPlace);
@@ -501,9 +468,9 @@ namespace Vente_Billets.Formulaires
             this.Controls.Add(this.label7);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FrmBillet";
-            this.Text = "FrmBillet";
-            this.Load += new System.EventHandler(this.FrmBillet_Load);
+            this.Name = "FrmVente";
+            this.Text = "FrmVente";
+            this.Load += new System.EventHandler(this.FrmVente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvBillet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -528,8 +495,6 @@ namespace Vente_Billets.Formulaires
         private Guna.UI2.WinForms.Guna2ComboBox cmbClient;
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbFacture;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvBillet;
         private Guna.UI2.WinForms.Guna2TextBox txtRecherche;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;

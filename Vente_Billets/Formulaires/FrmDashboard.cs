@@ -13,6 +13,7 @@ namespace Vente_Billets.Formulaires
     public partial class FrmDashboard : Form
     {
         public string UserRole { get; set; } = "";
+        public static int LoggedInAgentId { get; set; } = 0; // ID de l'agent connecté
 
         public FrmDashboard()
         {
@@ -68,13 +69,8 @@ namespace Vente_Billets.Formulaires
             }
             else if (UserRole == "Vendeur")
             {
-                // Vendeur : seulement Clients, Facture, Billets sont activés, commencer par Clients
+                // Vendeur : Clients, Paiement, Billet - commencer par Clients
                 ChargerFormulaire(new FrmClient());
-            }
-            else if (UserRole == "Compable")
-            {
-                // Compable : seulement Paiement est activé
-                ChargerFormulaire(new FrmPaiement());
             }
             else
             {
@@ -124,7 +120,7 @@ namespace Vente_Billets.Formulaires
         private void guna2Button8_Click(object sender, EventArgs e)
         {
             panelAffichage.Visible = true;
-            ChargerFormulaire(new FrmBillet());
+            ChargerFormulaire(new FrmVente());
         }
 
         private void guna2Button6_Click(object sender, EventArgs e)
@@ -135,8 +131,9 @@ namespace Vente_Billets.Formulaires
 
         private void guna2Button7_Click(object sender, EventArgs e)
         {
+            // Ce bouton est maintenant masqué, rediriger vers Vente
             panelAffichage.Visible = true;
-            ChargerFormulaire(new FrmFacture());
+            ChargerFormulaire(new FrmVente());
         }
 
         private void panelHaut_Paint(object sender, PaintEventArgs e)

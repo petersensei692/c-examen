@@ -17,7 +17,7 @@ namespace Vente_Billets.Rapports
         private float yPos = 0;
         private float leftMargin = 50;
         private float topMargin = 50;
-        private float lineHeight = 30;
+            private float lineHeight = 40;
 
         public Facture(int id)
         {
@@ -29,9 +29,9 @@ namespace Vente_Billets.Rapports
         {
             printDoc = new PrintDocument();
             printDoc.PrintPage += PrintDoc_PrintPage;
-            titleFont = new Font("Arial", 20, FontStyle.Bold);
-            normalFont = new Font("Arial", 14);
-            boldFont = new Font("Arial", 14, FontStyle.Bold);
+            titleFont = new Font("Arial", 24, FontStyle.Bold);
+            normalFont = new Font("Arial", 18);
+            boldFont = new Font("Arial", 18, FontStyle.Bold);
         }
 
         public void Print()
@@ -68,9 +68,13 @@ namespace Vente_Billets.Rapports
                 g.DrawString("FACTURE", titleFont, Brushes.Black, leftMargin, yPos);
                 yPos += lineHeight * 2;
 
-                // Informations de la facture
+                // Informations de la facture (exclure les colonnes "ref")
                 foreach (DataColumn column in data.Columns)
                 {
+                    // Ignorer les colonnes qui commencent par "ref"
+                    if (column.ColumnName.StartsWith("ref", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
                     if (row[column.ColumnName] != DBNull.Value)
                     {
                         string label = column.ColumnName.Replace("_", " ");

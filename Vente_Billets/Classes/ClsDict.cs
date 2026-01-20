@@ -134,9 +134,48 @@ namespace Vente_Billets.Classes
             }
         }
 
+        public int CreateFacture(int refClient, int refAgent, int refPlace)
+        {
+            string query = @"INSERT INTO dbo.tFacture (refClient, refAgent, refPlace) VALUES (@refClient, @refAgent, @refPlace); SELECT SCOPE_IDENTITY();";
+
+            using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
+            {
+                if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+                cmd.Parameters.AddWithValue("@refPlace", refPlace);
+                cmd.Parameters.AddWithValue("@refAgent", refAgent);
+                cmd.Parameters.AddWithValue("@refClient", refClient);
+                object result = cmd.ExecuteScalar();
+                return result != null ? Convert.ToInt32(result) : 0;
+            }
+        }
+
+        public int GetPlaceIdFromBillet(int billetId)
+        {
+            string query = @"SELECT RefPlace FROM tBillets WHERE id = @billetId";
+            using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
+            {
+                if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+                cmd.Parameters.AddWithValue("@billetId", billetId);
+                object result = cmd.ExecuteScalar();
+                return result != null && result != DBNull.Value ? (int)result : 0;
+            }
+        }
+
+        public void UpdateBilletFacture(int billetId, int factureId)
+        {
+            string query = @"UPDATE tBillets SET refFacture = @factureId WHERE id = @billetId";
+            using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
+            {
+                if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+                cmd.Parameters.AddWithValue("@billetId", billetId);
+                cmd.Parameters.AddWithValue("@factureId", factureId);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public void SaveUpdatePaiement(ClsPaiement paie)
         {
-            string query = @"EXEC SaveOrUpdatePaiement @id, @datePaiement, @modePaiement, @montant, @refAgent, @refClient";
+            string query = @"EXEC SaveOrUpdatePaiement @id, @datePaiement, @modePaiement, @montant, @refAgent, @refClient, @refBillet";
 
             using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
             {
@@ -147,6 +186,7 @@ namespace Vente_Billets.Classes
                 cmd.Parameters.AddWithValue("@montant", paie.Montant);
                 cmd.Parameters.AddWithValue("@refAgent", paie.RefAgent);
                 cmd.Parameters.AddWithValue("@refClient", paie.RefClient);
+                cmd.Parameters.AddWithValue("@refBillet", paie.RefBillet);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -165,9 +205,10 @@ namespace Vente_Billets.Classes
                 cmd.Parameters.AddWithValue("@refSpectacle", bi.RefSpectacle1);
                 cmd.Parameters.AddWithValue("@refPlace", bi.RefPlace1);
                 cmd.Parameters.AddWithValue("@refAgent", bi.RefAgent1);
-                cmd.Parameters.AddWithValue("@refClient", bi.RefClient1);
-                cmd.Parameters.AddWithValue("@refFacture", bi.RefFacture);
-                cmd.Parameters.AddWithValue("@refCat", bi.RefCat1);
+                // Permettre NULL pour refClient et refCat
+                cmd.Parameters.AddWithValue("@refClient", bi.RefClient1 > 0 ? (object)bi.RefClient1 : DBNull.Value);
+                cmd.Parameters.AddWithValue("@refFacture", bi.RefFacture > 0 ? (object)bi.RefFacture : DBNull.Value);
+                cmd.Parameters.AddWithValue("@refCat", bi.RefCat1 > 0 ? (object)bi.RefCat1 : DBNull.Value);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -184,6 +225,64 @@ namespace Vente_Billets.Classes
                 cmd.Parameters.AddWithValue("@refAgent", fact.RefAgent);
                 cmd.Parameters.AddWithValue("@refClient", fact.RefClient);
                 cmd.ExecuteNonQuery();
+            }
+        }
+
+        public int CreateVenteComplete(ClsBillets billet, out int factureId)
+        {
+            string query = @"EXEC CreateVenteComplete @prix, @dateAchat, @refSpectacle, @refClient, @refAgent, @refPlace, @refCat, @factureId OUTPUT, @billetId OUTPUT";
+
+            using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
+            {
+                if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+                cmd.Parameters.AddWithValue("@prix", billet.Prix);
+                cmd.Parameters.AddWithValue("@dateAchat", billet.DateAchat);
+                cmd.Parameters.AddWithValue("@refSpectacle", billet.RefSpectacle1);
+                cmd.Parameters.AddWithValue("@refClient", billet.RefClient1);
+                cmd.Parameters.AddWithValue("@refAgent", billet.RefAgent1);
+                cmd.Parameters.AddWithValue("@refPlace", billet.RefPlace1);
+                cmd.Parameters.AddWithValue("@refCat", billet.RefCat1);
+                
+                SqlParameter factureIdParam = new SqlParameter("@factureId", SqlDbType.Int);
+                factureIdParam.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(factureIdParam);
+                
+                SqlParameter billetIdParam = new SqlParameter("@billetId", SqlDbType.Int);
+                billetIdParam.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(billetIdParam);
+                
+                cmd.ExecuteNonQuery();
+                
+                factureId = (int)factureIdParam.Value;
+                return (int)billetIdParam.Value;
+            }
+        }
+
+        public int GetFactureIdFromBillet(int billetId)
+        {
+            string query = @"SELECT refFacture FROM tBillets WHERE id = @billetId";
+            using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
+            {
+                if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+                cmd.Parameters.AddWithValue("@billetId", billetId);
+                object result = cmd.ExecuteScalar();
+                return result != null && result != DBNull.Value ? (int)result : 0;
+            }
+        }
+
+        public DateTime? GetDateSpectacleFromId(int spectacleId)
+        {
+            string query = @"SELECT dateSpectacle FROM tSpectacle WHERE id = @spectacleId";
+            using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
+            {
+                if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+                cmd.Parameters.AddWithValue("@spectacleId", spectacleId);
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    return (DateTime)result;
+                }
+                return null;
             }
         }
 
@@ -218,12 +317,29 @@ namespace Vente_Billets.Classes
 
         public DataTable Imprimez_Recu(string nom)
         {
-            string query = @"SELECT * FROM Produire_Recu WHERE noms = @noms";
+            string query = @"SELECT * FROM Produire_Recu WHERE Client = @noms";
 
             using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
             {
                 if (!con.State.ToString().ToLower().Equals("open")) con.Open();
                 cmd.Parameters.AddWithValue("@noms", nom);
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    return dt;
+                }
+            }
+        }
+
+        public DataTable Imprimez_Recu_ByPaiementId(int paiementId)
+        {
+            string query = @"SELECT * FROM Produire_Recu WHERE id = @paiementId";
+
+            using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
+            {
+                if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+                cmd.Parameters.AddWithValue("@paiementId", paiementId);
                 using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                 {
                     DataTable dt = new DataTable();
@@ -348,7 +464,35 @@ namespace Vente_Billets.Classes
                 {
                     comb1.Items.Add(dr[nomchamp]);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors du chargement : " + ex.Message); 
+            }
+        }
 
+        public void loadComboBillets(System.Windows.Forms.ComboBox comb1)
+        {
+            if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+            string query = @"SELECT b.id, 
+                            ISNULL(c.noms, 'Sans client') AS Client, 
+                            s.titre AS Spectacle 
+                            FROM tBillets b
+                            LEFT JOIN tClients c ON b.RefClient = c.id
+                            INNER JOIN tSpectacle s ON b.RefSpectacle = s.id
+                            ORDER BY b.id DESC";
+            dt = new SqlDataAdapter(query, con);
+            try
+            {
+                DataTable dt1 = new DataTable();
+                dt.Fill(dt1);
+                comb1.Items.Clear();
+                foreach (DataRow dr in dt1.Rows)
+                {
+                    string clientName = dr["Client"] != DBNull.Value ? dr["Client"].ToString() : "Sans client";
+                    string displayText = $"Billet #{dr["id"]} - {clientName} - {dr["Spectacle"]}";
+                    comb1.Items.Add(displayText);
+                }
             }
             catch (Exception ex)
             {
@@ -356,6 +500,22 @@ namespace Vente_Billets.Classes
             }
 
             con.Close();
+        }
+
+        public int GetBilletIdFromDisplayText(string displayText)
+        {
+            // Extraire l'ID du billet depuis le texte "Billet #ID - Client - Spectacle"
+            if (string.IsNullOrEmpty(displayText)) return 0;
+            int startIndex = displayText.IndexOf("#") + 1;
+            int endIndex = displayText.IndexOf(" -");
+            if (startIndex > 0 && endIndex > startIndex)
+            {
+                string idStr = displayText.Substring(startIndex, endIndex - startIndex);
+                int billetId;
+                if (int.TryParse(idStr, out billetId))
+                    return billetId;
+            }
+            return 0;
         }
 
         public string getcode_Combo(string nomTable, string nomChampId, string nomChamp, string valeur)

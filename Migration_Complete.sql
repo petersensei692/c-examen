@@ -48,11 +48,13 @@ IF OBJECT_ID('dbo.SaveOrUpdatePaiement', 'P') IS NOT NULL DROP PROCEDURE dbo.Sav
 IF OBJECT_ID('dbo.SaveOrUpdateFacture', 'P') IS NOT NULL DROP PROCEDURE dbo.SaveOrUpdateFacture;
 IF OBJECT_ID('dbo.SaveOrUpdateBillet', 'P') IS NOT NULL DROP PROCEDURE dbo.SaveOrUpdateBillet;
 IF OBJECT_ID('dbo.Production_Facture', 'P') IS NOT NULL DROP PROCEDURE dbo.Production_Facture;
+IF OBJECT_ID('dbo.CreateVenteComplete', 'P') IS NOT NULL DROP PROCEDURE dbo.CreateVenteComplete;
 GO
 
 -- Suppression des tables (dans l'ordre inverse des dépendances)
-IF OBJECT_ID('dbo.tBillets', 'U') IS NOT NULL DROP TABLE dbo.tBillets;
+-- D'abord supprimer les tables qui ont des dépendances (tPaiement dépend de tBillets)
 IF OBJECT_ID('dbo.tPaiement', 'U') IS NOT NULL DROP TABLE dbo.tPaiement;
+IF OBJECT_ID('dbo.tBillets', 'U') IS NOT NULL DROP TABLE dbo.tBillets;
 IF OBJECT_ID('dbo.tFacture', 'U') IS NOT NULL DROP TABLE dbo.tFacture;
 IF OBJECT_ID('dbo.tPlace', 'U') IS NOT NULL DROP TABLE dbo.tPlace;
 IF OBJECT_ID('dbo.tSpectacle', 'U') IS NOT NULL DROP TABLE dbo.tSpectacle;
@@ -137,20 +139,7 @@ CREATE TABLE dbo.tPlace (
 );
 GO
 
--- 7. Table tPaiement (Dépend de tClients et tAgents)
-CREATE TABLE dbo.tPaiement (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    datePaiement DATETIME,
-    modePaiement NVARCHAR(50),
-    montant DECIMAL(18, 2),
-    refClient INT,
-    refAgent INT,
-    CONSTRAINT FK_Paiement_Client FOREIGN KEY (refClient) REFERENCES dbo.tClients(id),
-    CONSTRAINT FK_Paiement_Agent FOREIGN KEY (refAgent) REFERENCES dbo.tAgents(id)
-);
-GO
-
--- 8. Table tFacture (Dépend de tClients, tAgents, tPlace)
+-- 7. Table tFacture (Dépend de tClients, tAgents, tPlace)
 CREATE TABLE dbo.tFacture (
     id INT IDENTITY(1,1) PRIMARY KEY,
     refClient INT,
@@ -162,24 +151,39 @@ CREATE TABLE dbo.tFacture (
 );
 GO
 
--- 9. Table tBillets (Dépend de plusieurs tables)
+-- 8. Table tBillets (Dépend de plusieurs tables, y compris tFacture)
 CREATE TABLE dbo.tBillets (
     id INT IDENTITY(1,1) PRIMARY KEY,
     dateAchat DATETIME,
     prix DECIMAL(18, 2),
     statut BIT,
-    RefClient INT,
-    RefAgent INT,
-    RefCat INT,
-    RefSpectacle INT,
-    refFacture INT,
-    RefPlace INT,
-    CONSTRAINT FK_Billets_Client FOREIGN KEY (RefClient) REFERENCES dbo.tClients(id),
+    RefClient INT NULL,
+    RefAgent INT NOT NULL,
+    RefCat INT NULL,
+    RefSpectacle INT NOT NULL,
+    refFacture INT NULL,
+    RefPlace INT NOT NULL,
     CONSTRAINT FK_Billets_Agent FOREIGN KEY (RefAgent) REFERENCES dbo.tAgents(id),
-    CONSTRAINT FK_Billets_Categorie FOREIGN KEY (RefCat) REFERENCES dbo.tCategorie(id),
     CONSTRAINT FK_Billets_Spectacle FOREIGN KEY (RefSpectacle) REFERENCES dbo.tSpectacle(id),
-    CONSTRAINT FK_Billets_Facture FOREIGN KEY (refFacture) REFERENCES dbo.tFacture(id),
-    CONSTRAINT FK_Billets_Place FOREIGN KEY (RefPlace) REFERENCES dbo.tPlace(id)
+    CONSTRAINT FK_Billets_Place FOREIGN KEY (RefPlace) REFERENCES dbo.tPlace(id),
+    CONSTRAINT FK_Billets_Client FOREIGN KEY (RefClient) REFERENCES dbo.tClients(id),
+    CONSTRAINT FK_Billets_Categorie FOREIGN KEY (RefCat) REFERENCES dbo.tCategorie(id),
+    CONSTRAINT FK_Billets_Facture FOREIGN KEY (refFacture) REFERENCES dbo.tFacture(id)
+);
+GO
+
+-- 9. Table tPaiement (Dépend de tClients, tAgents et tBillets)
+CREATE TABLE dbo.tPaiement (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    datePaiement DATETIME,
+    modePaiement NVARCHAR(50),
+    montant DECIMAL(18, 2),
+    refClient INT,
+    refAgent INT,
+    refBillet INT,
+    CONSTRAINT FK_Paiement_Client FOREIGN KEY (refClient) REFERENCES dbo.tClients(id),
+    CONSTRAINT FK_Paiement_Agent FOREIGN KEY (refAgent) REFERENCES dbo.tAgents(id),
+    CONSTRAINT FK_Paiement_Billet FOREIGN KEY (refBillet) REFERENCES dbo.tBillets(id)
 );
 GO
 
@@ -392,20 +396,21 @@ CREATE PROCEDURE dbo.SaveOrUpdatePaiement
     @modePaiement NVARCHAR(50),
     @montant DECIMAL(18, 2),
     @refAgent INT,
-    @refClient INT
+    @refClient INT,
+    @refBillet INT
 AS
 BEGIN
     SET NOCOUNT ON;
     IF EXISTS (SELECT 1 FROM dbo.tPaiement WHERE id = @id AND @id > 0)
     BEGIN
         UPDATE dbo.tPaiement
-        SET datePaiement = @datePaiement, modePaiement = @modePaiement, montant = @montant, refAgent = @refAgent, refClient = @refClient
+        SET datePaiement = @datePaiement, modePaiement = @modePaiement, montant = @montant, refAgent = @refAgent, refClient = @refClient, refBillet = @refBillet
         WHERE id = @id;
     END
     ELSE
     BEGIN
-        INSERT INTO dbo.tPaiement (datePaiement, modePaiement, montant, refAgent, refClient)
-        VALUES (@datePaiement, @modePaiement, @montant, @refAgent, @refClient);
+        INSERT INTO dbo.tPaiement (datePaiement, modePaiement, montant, refAgent, refClient, refBillet)
+        VALUES (@datePaiement, @modePaiement, @montant, @refAgent, @refClient, @refBillet);
     END
 END
 GO
@@ -430,6 +435,43 @@ BEGIN
         INSERT INTO dbo.tFacture (refClient, refAgent, refPlace)
         VALUES (@refClient, @refAgent, @refPlace);
     END
+END
+GO
+
+-- Procédure pour créer une vente complète (Facture + Billet)
+CREATE PROCEDURE dbo.CreateVenteComplete
+    @prix DECIMAL(18, 2),
+    @dateAchat DATETIME,
+    @refSpectacle INT,
+    @refClient INT,
+    @refAgent INT,
+    @refPlace INT,
+    @refCat INT,
+    @factureId INT OUTPUT,
+    @billetId INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRANSACTION;
+    BEGIN TRY
+        -- Créer la facture
+        INSERT INTO dbo.tFacture (refClient, refAgent, refPlace)
+        VALUES (@refClient, @refAgent, @refPlace);
+        
+        SET @factureId = SCOPE_IDENTITY();
+        
+        -- Créer le billet avec référence à la facture
+        INSERT INTO dbo.tBillets (prix, dateAchat, statut, RefSpectacle, RefClient, RefAgent, refFacture, RefPlace, RefCat)
+        VALUES (@prix, @dateAchat, 0, @refSpectacle, @refClient, @refAgent, @factureId, @refPlace, @refCat);
+        
+        SET @billetId = SCOPE_IDENTITY();
+        
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH
 END
 GO
 
@@ -490,18 +532,26 @@ SELECT
     f.id,
     c.noms AS Client,
     a.noms AS Agent,
-    p.numPlace AS Place,
+    pl.numPlace AS [Numero Place],
     sal.nomSalle AS Salle,
     cat.designation AS Categorie,
-    f.refClient,
-    f.refAgent,
-    f.refPlace
+    b.id AS [Numero Billet],
+    b.prix AS [Prix Billet],
+    b.dateAchat AS [Date Achat],
+    s.titre AS Spectacle,
+    s.dateSpectacle AS [Date du Spectacle],
+    paie.montant AS [Montant Paiement],
+    paie.modePaiement AS [Mode de Paiement],
+    paie.datePaiement AS [Date de Paiement]
 FROM dbo.tFacture f
 INNER JOIN dbo.tClients c ON f.refClient = c.id
 INNER JOIN dbo.tAgents a ON f.refAgent = a.id
-INNER JOIN dbo.tPlace p ON f.refPlace = p.id
-INNER JOIN dbo.tSalle sal ON p.refSalle = sal.id
-INNER JOIN dbo.tCategorie cat ON p.refCategorie = cat.id;
+INNER JOIN dbo.tPlace pl ON f.refPlace = pl.id
+INNER JOIN dbo.tSalle sal ON pl.refSalle = sal.id
+INNER JOIN dbo.tCategorie cat ON pl.refCategorie = cat.id
+LEFT JOIN dbo.tBillets b ON b.refFacture = f.id
+LEFT JOIN dbo.tSpectacle s ON b.RefSpectacle = s.id
+LEFT JOIN dbo.tPaiement paie ON paie.refBillet = b.id;
 GO
 
 -- Vue pour afficher tFacture avec noms (pour le DataGridView principal)
@@ -528,11 +578,21 @@ SELECT
     p.montant,
     p.datePaiement,
     p.modePaiement,
-    c.noms,
-    p.refClient,
-    p.refAgent
+    c.noms AS Client,
+    a.noms AS Agent,
+    b.id AS [Numero Billet],
+    b.prix AS [Prix Billet],
+    s.titre AS Spectacle,
+    s.dateSpectacle AS [Date du Spectacle],
+    pl.numPlace AS [Numero Place],
+    sal.nomSalle AS Salle
 FROM dbo.tPaiement p
-INNER JOIN dbo.tClients c ON p.refClient = c.id;
+INNER JOIN dbo.tClients c ON p.refClient = c.id
+INNER JOIN dbo.tAgents a ON p.refAgent = a.id
+LEFT JOIN dbo.tBillets b ON p.refBillet = b.id
+LEFT JOIN dbo.tSpectacle s ON b.RefSpectacle = s.id
+LEFT JOIN dbo.tPlace pl ON b.RefPlace = pl.id
+LEFT JOIN dbo.tSalle sal ON pl.refSalle = sal.id;
 GO
 
 -- Vue pour Imprmez_Billet
@@ -542,15 +602,18 @@ SELECT
     b.prix,
     b.dateAchat,
     b.statut,
-    s.titre,
-    c.noms AS NomClient,
-    p.numPlace,
-    cat.designation AS Categorie
+    s.titre AS Spectacle,
+    s.dateSpectacle AS [Date du Spectacle],
+    c.noms AS Client,
+    a.noms AS Agent,
+    p.numPlace AS [Numero Place],
+    sal.nomSalle AS Salle
 FROM dbo.tBillets b
 INNER JOIN dbo.tSpectacle s ON b.RefSpectacle = s.id
-INNER JOIN dbo.tClients c ON b.RefClient = c.id
+LEFT JOIN dbo.tClients c ON b.RefClient = c.id
+INNER JOIN dbo.tAgents a ON b.RefAgent = a.id
 INNER JOIN dbo.tPlace p ON b.RefPlace = p.id
-INNER JOIN dbo.tCategorie cat ON b.RefCat = cat.id;
+INNER JOIN dbo.tSalle sal ON p.refSalle = sal.id;
 GO
 
 -- Vue pour Affichez_Agent (vue manquante pour la recherche)
@@ -576,18 +639,15 @@ SELECT
     b.prix,
     b.statut,
     s.titre AS Spectacle,
+    s.dateSpectacle AS [Date du Spectacle],
     p.numPlace AS Numero_Place,
     a.noms AS Agent,
-    c.noms AS Client,
-    f.id AS [Numero Facture],
-    cat.designation AS Categorie_Place
+    c.noms AS Client
 FROM dbo.tBillets b
 INNER JOIN dbo.tSpectacle s ON b.RefSpectacle = s.id
 INNER JOIN dbo.tPlace p ON b.RefPlace = p.id
 INNER JOIN dbo.tAgents a ON b.RefAgent = a.id
-INNER JOIN dbo.tClients c ON b.RefClient = c.id
-LEFT JOIN dbo.tFacture f ON b.refFacture = f.id
-INNER JOIN dbo.tCategorie cat ON b.RefCat = cat.id;
+LEFT JOIN dbo.tClients c ON b.RefClient = c.id;
 GO
 
 -- Vue pour Affichez_Paiement (vue manquante pour la recherche)
@@ -598,10 +658,10 @@ SELECT
     p.modePaiement AS [Mode de Paiement],
     p.montant AS [Montant a Payer],
     a.noms AS Agent,
-    c.noms AS Client
+    b.id AS [Numero Billet]
 FROM dbo.tPaiement p
 INNER JOIN dbo.tAgents a ON p.refAgent = a.id
-INNER JOIN dbo.tClients c ON p.refClient = c.id;
+LEFT JOIN dbo.tBillets b ON p.refBillet = b.id;
 GO
 
 -- Vue pour Affichez_Spectacle (vue manquante pour la recherche)

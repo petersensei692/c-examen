@@ -37,6 +37,7 @@ namespace Vente_Billets.Formulaires
                     string role = ClsDict.Instance.GetRole(login, pwd);
                     FrmDashboard frm = new FrmDashboard();
                     frm.UserRole = role;
+                    FrmDashboard.LoggedInAgentId = agent.Id; // Stocker l'ID de l'agent connecté
                     
                     if (role == "Gerant")
                     {
@@ -47,24 +48,11 @@ namespace Vente_Billets.Formulaires
                     else if (role == "Vendeur")
                     {
                         // Désactiver les boutons non autorisés
+                        // Vendeur : Clients, Paiement, Billet
                         frm.guna2Button1.Enabled = false; // Agents
                         frm.guna2Button3.Enabled = false; // Salles
                         frm.guna2Button4.Enabled = false; // Spectacles
                         frm.guna2Button5.Enabled = false; // Places
-                        frm.guna2Button6.Enabled = false; // Paiement
-                        frm.Show();
-                        this.Hide();
-                    }
-                    else if (role == "Compable")
-                    {
-                        // Désactiver les boutons non autorisés
-                        frm.guna2Button1.Enabled = false; // Agents
-                        frm.guna2Button2.Enabled = false; // Clients
-                        frm.guna2Button3.Enabled = false; // Salles
-                        frm.guna2Button4.Enabled = false; // Spectacles
-                        frm.guna2Button5.Enabled = false; // Places
-                        frm.guna2Button7.Enabled = false; // Facture
-                        frm.guna2Button8.Enabled = false; // Billets
                         frm.Show();
                         this.Hide();
                     }

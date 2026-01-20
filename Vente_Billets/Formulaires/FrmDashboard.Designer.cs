@@ -74,12 +74,12 @@ namespace Vente_Billets.Formulaires
             this.guna2Button8.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button8.ForeColor = System.Drawing.Color.Black;
-            this.guna2Button8.Location = new System.Drawing.Point(1153, 0);
+            this.guna2Button8.Location = new System.Drawing.Point(994, 0);
             this.guna2Button8.Margin = new System.Windows.Forms.Padding(0);
             this.guna2Button8.Name = "guna2Button8";
             this.guna2Button8.Size = new System.Drawing.Size(172, 71);
             this.guna2Button8.TabIndex = 8;
-            this.guna2Button8.Text = "Billets";
+            this.guna2Button8.Text = "Billet";
             this.guna2Button8.Click += new System.EventHandler(this.guna2Button8_Click);
             // 
             // guna2Button7
@@ -97,9 +97,10 @@ namespace Vente_Billets.Formulaires
             this.guna2Button7.Location = new System.Drawing.Point(994, 0);
             this.guna2Button7.Margin = new System.Windows.Forms.Padding(0);
             this.guna2Button7.Name = "guna2Button7";
-            this.guna2Button7.Size = new System.Drawing.Size(159, 71);
+            this.guna2Button7.Size = new System.Drawing.Size(0, 0);
             this.guna2Button7.TabIndex = 7;
-            this.guna2Button7.Text = "Facture";
+            this.guna2Button7.Text = "Vente";
+            this.guna2Button7.Visible = false;
             this.guna2Button7.Click += new System.EventHandler(this.guna2Button7_Click);
             // 
             // guna2Button6

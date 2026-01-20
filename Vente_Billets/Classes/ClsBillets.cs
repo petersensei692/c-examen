@@ -37,7 +37,7 @@ namespace Vente_Billets.Classes
         public static void ChargementBillets(DataGridView dgv, Guna2TextBox txtId, Label lblId)
         {
             dgv.ColumnHeadersVisible = true;
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgv.CellBorderStyle = DataGridViewCellBorderStyle.Single;
             dgv.GridColor = Color.Gray;
             dgv.EnableHeadersVisualStyles = false;

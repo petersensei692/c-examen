@@ -127,7 +127,7 @@ namespace Vente_Billets.Formulaires
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(302, 89);
+            this.label1.Location = new System.Drawing.Point(52, 91);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(43, 16);
             this.label1.TabIndex = 62;
@@ -199,7 +199,7 @@ namespace Vente_Billets.Formulaires
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(302, 189);
+            this.label4.Location = new System.Drawing.Point(52, 189);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 16);
             this.label4.TabIndex = 65;

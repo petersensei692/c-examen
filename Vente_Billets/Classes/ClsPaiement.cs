@@ -17,6 +17,7 @@ namespace Vente_Billets.Classes
         double montant;
         int refClient;
         int refAgent;
+        int refBillet;
 
         public int Id { get => id; set => id = value; }
         public DateTime DatePaiement { get => datePaiement; set => datePaiement = value; }
@@ -24,6 +25,7 @@ namespace Vente_Billets.Classes
         public double Montant { get => montant; set => montant = value; }
         public int RefClient { get => refClient; set => refClient = value; }
         public int RefAgent { get => refAgent; set => refAgent = value; }
+        public int RefBillet { get => refBillet; set => refBillet = value; }
 
         public static void ChargementPaiement(DataGridView dgv, Guna2TextBox txtId, Label lblId,ComboBox cmb)
         {

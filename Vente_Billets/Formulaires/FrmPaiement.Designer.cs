@@ -220,7 +220,7 @@ namespace Vente_Billets.Formulaires
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 16);
             this.label1.TabIndex = 111;
-            this.label1.Text = "Client";
+            this.label1.Text = "Billet";
             // 
             // dgvPaiement
             // 

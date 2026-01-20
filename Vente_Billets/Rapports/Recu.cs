@@ -25,6 +25,12 @@ namespace Vente_Billets.Rapports
             InitializePrintDocument();
         }
 
+        public Recu(int paiementId)
+        {
+            data = ClsDict.Instance.Imprimez_Recu_ByPaiementId(paiementId);
+            InitializePrintDocument();
+        }
+
         private void InitializePrintDocument()
         {
             printDoc = new PrintDocument();
@@ -68,9 +74,13 @@ namespace Vente_Billets.Rapports
                 g.DrawString("RECU DE PAIEMENT", titleFont, Brushes.Black, leftMargin, yPos);
                 yPos += lineHeight * 2;
 
-                // Informations du reçu
+                // Informations du reçu (exclure les colonnes "ref")
                 foreach (DataColumn column in data.Columns)
                 {
+                    // Ignorer les colonnes qui commencent par "ref"
+                    if (column.ColumnName.StartsWith("ref", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
                     if (row[column.ColumnName] != DBNull.Value)
                     {
                         string label = column.ColumnName.Replace("_", " ");

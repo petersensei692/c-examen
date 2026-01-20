@@ -113,6 +113,12 @@
     <Compile Include="Formulaires\FrmBillet.Designer.cs">
       <DependentUpon>FrmBillet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formulaires\FrmVente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaires\FrmVente.Designer.cs">
+      <DependentUpon>FrmVente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formulaires\FrmClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formulaires\FrmBillet.resx">
       <DependentUpon>FrmBillet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulaires\FrmVente.resx">
+      <DependentUpon>FrmVente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formulaires\FrmClient.resx">
       <DependentUpon>FrmClient.cs</DependentUpon>
