@@ -38,8 +38,8 @@ namespace Vente_Billets.Classes
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             dgv.DataSource = ClsDict.Instance.loadData("tClients");
-            txtId.Visible = false;
-            lblId.Visible = false;
+            txtId.Visible = true;
+            lblId.Visible = true;
             string[] genre = { "Feminin", "Masculin" };
             cmb.Items.AddRange(genre);
         }

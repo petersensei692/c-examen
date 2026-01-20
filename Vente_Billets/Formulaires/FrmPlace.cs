@@ -23,7 +23,7 @@ namespace Vente_Billets.Formulaires
             if (ClsDict.Instance.OpenConnection())
             {
                 ClsPlace.ChargementPlace(dgvPlace, txtIdPlace, id, cmbSallePlace);
-                ClsDict.Instance.loadCombo("CategoriePlace", "designation", cmbCatPlace);
+                ClsDict.Instance.loadCombo("tCategorie", "designation", cmbCatPlace);
             }
             
         }
@@ -31,7 +31,7 @@ namespace Vente_Billets.Formulaires
         ClsPlace pl = new ClsPlace();
         private void InsertUpdatePlace(int a)
         {
-            pl.RefCategorie = int.Parse(ClsDict.Instance.getcode_Combo("CategoriePlace", "id", "designation", cmbCatPlace.Text));
+            pl.RefCategorie = int.Parse(ClsDict.Instance.getcode_Combo("tCategorie", "id", "designation", cmbCatPlace.Text));
             pl.NumPlace = txtNumPlace.Text;
             pl.RefSalle = int.Parse(ClsDict.Instance.getcode_Combo("tSalle", "id", "nomSalle", cmbSallePlace.Text));
 
@@ -98,6 +98,16 @@ namespace Vente_Billets.Formulaires
 
             txtIdPlace.Visible = true;
             id.Visible = true;
+        }
+
+        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbCatPlace_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

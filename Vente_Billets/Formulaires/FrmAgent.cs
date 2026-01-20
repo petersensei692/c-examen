@@ -137,5 +137,10 @@ namespace Vente_Billets.Formulaires
         {
             dgvAgents.DataSource = ClsDict.Instance.Rechercher(txtRecherche.Text.Trim(), "Affichez_Agent", "Noms");
         }
+
+        private void txtFoctionAgent_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

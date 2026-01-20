@@ -1,4 +1,5 @@
-﻿
+﻿using Guna.UI2.WinForms;
+
 namespace Vente_Billets
 {
     partial class Form1

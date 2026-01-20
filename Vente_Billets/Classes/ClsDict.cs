@@ -423,7 +423,7 @@ namespace Vente_Billets.Classes
         {
 
             if (con.State != ConnectionState.Open) con.Open();
-            string query = "SELECT * FROM tAgents WHERE username = @username AND pwd = @mdp";
+            string query = "SELECT * FROM tAgents WHERE username = @username AND password = @mdp";
 
             using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
             {

@@ -24,7 +24,7 @@ namespace Vente_Billets.Formulaires
             if (ClsDict.Instance.OpenConnection())
             {
                 ClsFacture.ChargementFacture(dgvFacture, txtIdfacture, id);
-                ClsDict.Instance.loadCombo("CategoriePlace", "designation", cmbPlace);
+                ClsDict.Instance.loadCombo("tCategorie", "designation", cmbPlace);
                 ClsDict.Instance.loadCombo("tClients", "noms", cmbClient);
                 ClsDict.Instance.loadCombo("tAgents", "noms", cmbAgent);
             }
@@ -36,7 +36,7 @@ namespace Vente_Billets.Formulaires
         {
             fact.RefAgent = int.Parse(ClsDict.Instance.getcode_Combo("tAgents", "id", "noms", cmbAgent.Text));
             fact.RefClient = int.Parse(ClsDict.Instance.getcode_Combo("tClients", "id", "noms", cmbClient.Text));
-            fact.RefPlace = int.Parse(ClsDict.Instance.getcode_Combo("CategoriePlace", "id", "designation", cmbPlace.Text));
+            fact.RefPlace = int.Parse(ClsDict.Instance.getcode_Combo("tCategorie", "id", "designation", cmbPlace.Text));
 
             if (a == 1)
             {

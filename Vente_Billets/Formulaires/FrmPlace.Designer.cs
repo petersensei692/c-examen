@@ -56,10 +56,10 @@ namespace Vente_Billets.Formulaires
             this.BtnDeleteAgent.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.BtnDeleteAgent.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.BtnDeleteAgent.ForeColor = System.Drawing.Color.White;
-            this.BtnDeleteAgent.Location = new System.Drawing.Point(550, 574);
-            this.BtnDeleteAgent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BtnDeleteAgent.Location = new System.Drawing.Point(733, 706);
+            this.BtnDeleteAgent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnDeleteAgent.Name = "BtnDeleteAgent";
-            this.BtnDeleteAgent.Size = new System.Drawing.Size(120, 29);
+            this.BtnDeleteAgent.Size = new System.Drawing.Size(160, 36);
             this.BtnDeleteAgent.TabIndex = 92;
             this.BtnDeleteAgent.Text = "Delete";
             this.BtnDeleteAgent.Click += new System.EventHandler(this.BtnDeleteAgent_Click);
@@ -72,10 +72,10 @@ namespace Vente_Billets.Formulaires
             this.btnUpdateAgent.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnUpdateAgent.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnUpdateAgent.ForeColor = System.Drawing.Color.White;
-            this.btnUpdateAgent.Location = new System.Drawing.Point(338, 574);
-            this.btnUpdateAgent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnUpdateAgent.Location = new System.Drawing.Point(451, 706);
+            this.btnUpdateAgent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnUpdateAgent.Name = "btnUpdateAgent";
-            this.btnUpdateAgent.Size = new System.Drawing.Size(120, 29);
+            this.btnUpdateAgent.Size = new System.Drawing.Size(160, 36);
             this.btnUpdateAgent.TabIndex = 91;
             this.btnUpdateAgent.Text = "Update";
             this.btnUpdateAgent.Click += new System.EventHandler(this.btnUpdateAgent_Click);
@@ -88,10 +88,10 @@ namespace Vente_Billets.Formulaires
             this.BtnAjouterAgent.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.BtnAjouterAgent.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.BtnAjouterAgent.ForeColor = System.Drawing.Color.White;
-            this.BtnAjouterAgent.Location = new System.Drawing.Point(132, 574);
-            this.BtnAjouterAgent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BtnAjouterAgent.Location = new System.Drawing.Point(176, 706);
+            this.BtnAjouterAgent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnAjouterAgent.Name = "BtnAjouterAgent";
-            this.BtnAjouterAgent.Size = new System.Drawing.Size(120, 29);
+            this.BtnAjouterAgent.Size = new System.Drawing.Size(160, 36);
             this.BtnAjouterAgent.TabIndex = 90;
             this.BtnAjouterAgent.Text = "Ajouter";
             this.BtnAjouterAgent.Click += new System.EventHandler(this.BtnAjouterAgent_Click);
@@ -107,21 +107,20 @@ namespace Vente_Billets.Formulaires
             this.txtIdPlace.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtIdPlace.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtIdPlace.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtIdPlace.Location = new System.Drawing.Point(77, 176);
-            this.txtIdPlace.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtIdPlace.Location = new System.Drawing.Point(103, 217);
+            this.txtIdPlace.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtIdPlace.Name = "txtIdPlace";
             this.txtIdPlace.PlaceholderText = "";
             this.txtIdPlace.SelectedText = "";
-            this.txtIdPlace.Size = new System.Drawing.Size(167, 25);
+            this.txtIdPlace.Size = new System.Drawing.Size(223, 31);
             this.txtIdPlace.TabIndex = 89;
             // 
             // id
             // 
             this.id.AutoSize = true;
-            this.id.Location = new System.Drawing.Point(7, 189);
-            this.id.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.id.Location = new System.Drawing.Point(9, 233);
             this.id.Name = "id";
-            this.id.Size = new System.Drawing.Size(15, 13);
+            this.id.Size = new System.Drawing.Size(18, 16);
             this.id.TabIndex = 88;
             this.id.Text = "id";
             // 
@@ -136,21 +135,20 @@ namespace Vente_Billets.Formulaires
             this.txtNumPlace.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNumPlace.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtNumPlace.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtNumPlace.Location = new System.Drawing.Point(76, 133);
-            this.txtNumPlace.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtNumPlace.Location = new System.Drawing.Point(101, 164);
+            this.txtNumPlace.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtNumPlace.Name = "txtNumPlace";
             this.txtNumPlace.PlaceholderText = "";
             this.txtNumPlace.SelectedText = "";
-            this.txtNumPlace.Size = new System.Drawing.Size(167, 25);
+            this.txtNumPlace.Size = new System.Drawing.Size(223, 31);
             this.txtNumPlace.TabIndex = 86;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(7, 145);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Location = new System.Drawing.Point(9, 178);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(44, 13);
+            this.label13.Size = new System.Drawing.Size(55, 16);
             this.label13.TabIndex = 85;
             this.label13.Text = "Numero";
             // 
@@ -160,10 +158,9 @@ namespace Vente_Billets.Formulaires
             this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.label7.Font = new System.Drawing.Font("Segoe UI", 26F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(112, 9);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(149, 11);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(541, 47);
+            this.label7.Size = new System.Drawing.Size(669, 60);
             this.label7.TabIndex = 80;
             this.label7.Text = "ENREGISTREMENT DES PLACES";
             // 
@@ -177,19 +174,18 @@ namespace Vente_Billets.Formulaires
             this.cmbSallePlace.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbSallePlace.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cmbSallePlace.ItemHeight = 30;
-            this.cmbSallePlace.Location = new System.Drawing.Point(368, 97);
-            this.cmbSallePlace.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbSallePlace.Location = new System.Drawing.Point(491, 119);
+            this.cmbSallePlace.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbSallePlace.Name = "cmbSallePlace";
-            this.cmbSallePlace.Size = new System.Drawing.Size(168, 36);
+            this.cmbSallePlace.Size = new System.Drawing.Size(223, 36);
             this.cmbSallePlace.TabIndex = 94;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(306, 108);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Location = new System.Drawing.Point(408, 133);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(30, 13);
+            this.label11.Size = new System.Drawing.Size(38, 16);
             this.label11.TabIndex = 93;
             this.label11.Text = "Salle";
             // 
@@ -197,24 +193,26 @@ namespace Vente_Billets.Formulaires
             // 
             this.guna2PictureBox1.Image = global::Vente_Billets.Properties.Resources.place;
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(766, 80);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(1021, 98);
+            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(300, 322);
+            this.guna2PictureBox1.Size = new System.Drawing.Size(400, 396);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.guna2PictureBox1.TabIndex = 95;
             this.guna2PictureBox1.TabStop = false;
+            this.guna2PictureBox1.Click += new System.EventHandler(this.guna2PictureBox1_Click);
             // 
             // dgvPlace
             // 
             this.dgvPlace.BackgroundColor = System.Drawing.Color.White;
             this.dgvPlace.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPlace.GridColor = System.Drawing.Color.White;
-            this.dgvPlace.Location = new System.Drawing.Point(47, 293);
-            this.dgvPlace.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvPlace.Location = new System.Drawing.Point(63, 361);
+            this.dgvPlace.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvPlace.Name = "dgvPlace";
             this.dgvPlace.RowHeadersWidth = 62;
             this.dgvPlace.RowTemplate.Height = 28;
-            this.dgvPlace.Size = new System.Drawing.Size(760, 268);
+            this.dgvPlace.Size = new System.Drawing.Size(1013, 330);
             this.dgvPlace.TabIndex = 96;
             this.dgvPlace.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPlace_CellClick);
             // 
@@ -231,23 +229,22 @@ namespace Vente_Billets.Formulaires
             this.txtRecherche.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRecherche.ForeColor = System.Drawing.Color.Black;
             this.txtRecherche.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtRecherche.Location = new System.Drawing.Point(47, 236);
-            this.txtRecherche.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtRecherche.Location = new System.Drawing.Point(63, 290);
+            this.txtRecherche.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtRecherche.Name = "txtRecherche";
             this.txtRecherche.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.txtRecherche.PlaceholderText = "Recherche";
             this.txtRecherche.SelectedText = "";
-            this.txtRecherche.Size = new System.Drawing.Size(308, 29);
+            this.txtRecherche.Size = new System.Drawing.Size(411, 36);
             this.txtRecherche.TabIndex = 97;
             this.txtRecherche.TextChanged += new System.EventHandler(this.txtRecherche_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 108);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(9, 133);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.Size = new System.Drawing.Size(66, 16);
             this.label1.TabIndex = 98;
             this.label1.Text = "Categorie";
             // 
@@ -261,18 +258,19 @@ namespace Vente_Billets.Formulaires
             this.cmbCatPlace.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbCatPlace.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cmbCatPlace.ItemHeight = 30;
-            this.cmbCatPlace.Location = new System.Drawing.Point(76, 97);
-            this.cmbCatPlace.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbCatPlace.Location = new System.Drawing.Point(101, 119);
+            this.cmbCatPlace.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbCatPlace.Name = "cmbCatPlace";
-            this.cmbCatPlace.Size = new System.Drawing.Size(168, 36);
+            this.cmbCatPlace.Size = new System.Drawing.Size(223, 36);
             this.cmbCatPlace.TabIndex = 99;
+            this.cmbCatPlace.SelectedIndexChanged += new System.EventHandler(this.cmbCatPlace_SelectedIndexChanged);
             // 
             // FrmPlace
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1078, 663);
+            this.ClientSize = new System.Drawing.Size(1437, 816);
             this.Controls.Add(this.cmbCatPlace);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtRecherche);
@@ -288,6 +286,7 @@ namespace Vente_Billets.Formulaires
             this.Controls.Add(this.txtNumPlace);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label7);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FrmPlace";
             this.Text = "FrmPlace";
             this.Load += new System.EventHandler(this.FrmPlace_Load);

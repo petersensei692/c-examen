@@ -60,18 +60,20 @@ namespace Vente_Billets.Formulaires
             this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2ControlBox1.FillColor = System.Drawing.Color.White;
             this.guna2ControlBox1.IconColor = System.Drawing.Color.Black;
-            this.guna2ControlBox1.Location = new System.Drawing.Point(285, 8);
+            this.guna2ControlBox1.Location = new System.Drawing.Point(380, 10);
+            this.guna2ControlBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.guna2ControlBox1.Name = "guna2ControlBox1";
-            this.guna2ControlBox1.Size = new System.Drawing.Size(45, 29);
+            this.guna2ControlBox1.Size = new System.Drawing.Size(60, 36);
             this.guna2ControlBox1.TabIndex = 51;
             // 
             // guna2HtmlLabel2
             // 
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel2.Font = new System.Drawing.Font("Microsoft Tai Le", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(132, 12);
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(176, 15);
+            this.guna2HtmlLabel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(54, 25);
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(67, 33);
             this.guna2HtmlLabel2.TabIndex = 49;
             this.guna2HtmlLabel2.Text = "Login";
             // 
@@ -87,11 +89,12 @@ namespace Vente_Billets.Formulaires
             this.btnConnexion.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConnexion.ForeColor = System.Drawing.Color.White;
             this.btnConnexion.HoverState.FillColor = System.Drawing.Color.White;
-            this.btnConnexion.Location = new System.Drawing.Point(203, 294);
+            this.btnConnexion.Location = new System.Drawing.Point(271, 362);
+            this.btnConnexion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnConnexion.Name = "btnConnexion";
             this.btnConnexion.ShadowDecoration.BorderRadius = 20;
             this.btnConnexion.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(3, 3, 5, 5);
-            this.btnConnexion.Size = new System.Drawing.Size(73, 40);
+            this.btnConnexion.Size = new System.Drawing.Size(97, 49);
             this.btnConnexion.TabIndex = 48;
             this.btnConnexion.Text = "Sign in";
             this.btnConnexion.Click += new System.EventHandler(this.btnConnexion_Click);
@@ -109,12 +112,13 @@ namespace Vente_Billets.Formulaires
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.ForeColor = System.Drawing.Color.Black;
             this.txtPassword.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtPassword.Location = new System.Drawing.Point(29, 227);
+            this.txtPassword.Location = new System.Drawing.Point(39, 279);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.txtPassword.PlaceholderText = "Password";
             this.txtPassword.SelectedText = "";
-            this.txtPassword.Size = new System.Drawing.Size(247, 36);
+            this.txtPassword.Size = new System.Drawing.Size(329, 44);
             this.txtPassword.TabIndex = 47;
             this.txtPassword.UseSystemPasswordChar = true;
             this.txtPassword.TextChanged += new System.EventHandler(this.guna2TextBox2_TextChanged);
@@ -132,31 +136,34 @@ namespace Vente_Billets.Formulaires
             this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsername.ForeColor = System.Drawing.Color.Black;
             this.txtUsername.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtUsername.Location = new System.Drawing.Point(29, 173);
+            this.txtUsername.Location = new System.Drawing.Point(39, 213);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.txtUsername.PlaceholderText = "Username";
             this.txtUsername.SelectedText = "";
-            this.txtUsername.Size = new System.Drawing.Size(247, 36);
+            this.txtUsername.Size = new System.Drawing.Size(329, 44);
             this.txtUsername.TabIndex = 46;
             // 
             // guna2PictureBox1
             // 
             this.guna2PictureBox1.Image = global::Vente_Billets.Properties.Resources.log;
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(52, 36);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(69, 44);
+            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(214, 131);
+            this.guna2PictureBox1.Size = new System.Drawing.Size(285, 161);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.guna2PictureBox1.TabIndex = 50;
             this.guna2PictureBox1.TabStop = false;
+            this.guna2PictureBox1.Click += new System.EventHandler(this.guna2PictureBox1_Click);
             // 
             // FrmLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(333, 356);
+            this.ClientSize = new System.Drawing.Size(444, 438);
             this.Controls.Add(this.guna2ControlBox1);
             this.Controls.Add(this.guna2PictureBox1);
             this.Controls.Add(this.guna2HtmlLabel2);
@@ -164,6 +171,7 @@ namespace Vente_Billets.Formulaires
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FrmLogin";
             this.Text = "FrmLogin";
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();

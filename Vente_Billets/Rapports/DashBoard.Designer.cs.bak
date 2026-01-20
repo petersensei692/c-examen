@@ -101,11 +101,11 @@ namespace Vente_Billets.Rapports
             this.TopMargin,
             this.BottomMargin,
             this.Detail});
-            this.Font = new DevExpress.Drawing.DXFont("Arial", 9.75F);
-            this.Margins = new DevExpress.Drawing.DXMargins(100, 100, 100, 409);
+            this.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.Margins = new System.Drawing.Printing.Margins(100, 100, 100, 409);
             this.PageHeight = 1654;
             this.PageWidth = 1169;
-            this.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A3Transverse;
+            this.PaperKind = System.Drawing.Printing.PaperKind.A3Transverse;
             this.Version = "19.2";
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();

@@ -26,11 +26,11 @@ namespace Vente_Billets.Formulaires
             {
                 ClsBillets.ChargementBillets(dgvBillet, txtIdBillet, id);
                 ClsDict.Instance.loadCombo("tSpectacle", "titre", cmbSpectacle);
-                ClsDict.Instance.loadCombo("tPlace", "numero", cmbPlace);
+                ClsDict.Instance.loadCombo("tPlace", "numPlace", cmbPlace);
                 ClsDict.Instance.loadCombo("tClients", "noms", cmbClient);
                 ClsDict.Instance.loadCombo("tAgents", "noms", cmbAgent);
-                ClsDict.Instance.loadCombo("Facture", "id", cmbFacture);
-                ClsDict.Instance.loadCombo("CategoriePlace", "designation", cmbCatPlace);
+                ClsDict.Instance.loadCombo("tFacture", "id", cmbFacture);
+                ClsDict.Instance.loadCombo("tCategorie", "designation", cmbCatPlace);
             }
         }
 
@@ -42,10 +42,10 @@ namespace Vente_Billets.Formulaires
             bi.DateAchat = DateTime.Parse(DateAchat.Text);
             bi.RefAgent1 = int.Parse(ClsDict.Instance.getcode_Combo("tAgents", "id", "noms", cmbAgent.Text));
             bi.RefClient1 = int.Parse(ClsDict.Instance.getcode_Combo("tClients", "id", "noms", cmbClient.Text));
-            bi.RefPlace1 = int.Parse(ClsDict.Instance.getcode_Combo("tPlace", "id", "numero", cmbPlace.Text));
+            bi.RefPlace1 = int.Parse(ClsDict.Instance.getcode_Combo("tPlace", "id", "numPlace", cmbPlace.Text));
             bi.RefSpectacle1 = int.Parse(ClsDict.Instance.getcode_Combo("tSpectacle", "id", "titre", cmbSpectacle.Text));
-            bi.RefFacture = int.Parse(ClsDict.Instance.getcode_Combo("Facture", "id", "id", cmbFacture.Text));
-            bi.RefCat1 = int.Parse(ClsDict.Instance.getcode_Combo("CategoriePlace", "id", "designation", cmbCatPlace.Text));
+            bi.RefFacture = int.Parse(ClsDict.Instance.getcode_Combo("tFacture", "id", "id", cmbFacture.Text));
+            bi.RefCat1 = int.Parse(ClsDict.Instance.getcode_Combo("tCategorie", "id", "designation", cmbCatPlace.Text));
 
             if (a == 1)
             {

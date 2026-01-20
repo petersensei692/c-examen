@@ -167,5 +167,10 @@ namespace Vente_Billets.Formulaires
         {
            
         }
+
+        private void panelGauche_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

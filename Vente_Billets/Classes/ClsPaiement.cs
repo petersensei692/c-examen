@@ -35,11 +35,11 @@ namespace Vente_Billets.Classes
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(100, 88, 255); // ou une autre couleur
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgv.DataSource = ClsDict.Instance.loadData("Affichez_Paiement");
+            dgv.DataSource = ClsDict.Instance.loadData("tPaiement");
             string[] modePaiement = { "Cash", "Check", "Mobile Money" };
             cmb.Items.AddRange(modePaiement);
-            txtId.Visible = false;
-            lblId.Visible = false;
+            txtId.Visible = true;
+            lblId.Visible = true;
         }
     }
 }
