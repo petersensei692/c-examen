@@ -99,7 +99,6 @@ CREATE TABLE dbo.tAgents (
     id INT IDENTITY(1,1) PRIMARY KEY,
     noms NVARCHAR(100) NOT NULL,
     contact NVARCHAR(50),
-    fonction NVARCHAR(50),
     role NVARCHAR(50),
     username NVARCHAR(50),
     [password] NVARCHAR(255),
@@ -201,11 +200,12 @@ INSERT INTO dbo.tSalle (nomSalle, adresse, nombrePlace) VALUES
 ('Stade des Martyrs', 'Rue de la Victoire', '80000');
 GO
 
--- Insertion des spectacles
+-- Insertion des spectacles (dates valides - minimum demain)
+-- Note: Les dates doivent être au minimum demain. Ajustez selon la date actuelle.
 INSERT INTO dbo.tSpectacle (titre, dateSpectacle, nombreBillet, duree, descSpect, refSalle) VALUES 
-('Concert de Fally Ipupa', '2024-12-31 20:00:00', 4500, '03h00', 'Soirée exceptionnelle Power Nkossa', 1),
-('Pièce : Les Misérables', '2024-11-15 18:30:00', 1000, '02h15', 'Classique du théâtre français', 2),
-('Festival de Rumba', '2024-08-30 16:00:00', 50000, '08h00', 'Grande fête de la musique congolaise', 3);
+('Concert de Fally Ipupa', DATEADD(day, 30, GETDATE()), 4500, '03h00', 'Soirée exceptionnelle Power Nkossa', 1),
+('Pièce : Les Misérables', DATEADD(day, 45, GETDATE()), 1000, '02h15', 'Classique du théâtre français', 2),
+('Festival de Rumba', DATEADD(day, 60, GETDATE()), 50000, '08h00', 'Grande fête de la musique congolaise', 3);
 GO
 
 -- Insertion des clients
@@ -217,10 +217,10 @@ INSERT INTO dbo.tClients (noms, adresse, contact, genre, age) VALUES
 GO
 
 -- Insertion des agents (mot de passe : 1234)
-INSERT INTO dbo.tAgents (noms, contact, fonction, role, username, [password], refSalle) VALUES 
-('Admin Principal', '+243810000001', 'Admin Principal', 'Gerant', 'admin', '1234', 2),
-('Agent Masela', '+243810000002', 'Vendeur', 'Vendeur', 'masela', '1234', 1),
-('Agent Makambo', '+243810000003', 'Comptable', 'Compable', 'makambo', '1234', 1);
+INSERT INTO dbo.tAgents (noms, contact, role, username, [password], refSalle) VALUES 
+('Admin Principal', '+243810000001', 'Admin', 'admin', '1234', 2),
+('Agent Masela', '+243810000002', 'Vendeur', 'masela', '1234', 1),
+('Agent Makambo', '+243810000003', 'Vendeur', 'makambo', '1234', 1);
 GO
 
 -- Insertion des places
@@ -234,18 +234,6 @@ GO
 INSERT INTO dbo.tFacture (refClient, refAgent, refPlace) VALUES 
 (1, 2, 1),
 (2, 2, 4);
-GO
-
--- Insertion des billets
-INSERT INTO dbo.tBillets (prix, dateAchat, statut, RefSpectacle, RefClient, RefAgent, refFacture, RefPlace, RefCat) VALUES 
-(50.00, '2024-10-01 10:00:00', 0, 1, 1, 2, 1, 1, 1),
-(150.00, '2024-10-01 10:05:00', 0, 1, 2, 2, 2, 4, 2);
-GO
-
--- Insertion des paiements
-INSERT INTO dbo.tPaiement (datePaiement, modePaiement, montant, refAgent, refClient) VALUES 
-('2024-10-01 10:10:00', 'Mobile Money (Airtel)', 50.00, 2, 1),
-('2024-10-01 10:15:00', 'Espèces (CDF)', 150.00, 2, 2);
 GO
 
 PRINT 'Étape 3 terminée : Données de base insérées.';
@@ -288,7 +276,7 @@ CREATE PROCEDURE dbo.sp_SaveOrUpdateAgent_Flexible
     @id INT,
     @noms NVARCHAR(100),
     @contact NVARCHAR(50),
-    @fonction NVARCHAR(50),
+    @fonction NVARCHAR(50), -- Paramètre conservé pour compatibilité mais non utilisé
     @role NVARCHAR(50),
     @username NVARCHAR(50),
     @pwd NVARCHAR(255),
@@ -299,13 +287,13 @@ BEGIN
     IF EXISTS (SELECT 1 FROM dbo.tAgents WHERE id = @id AND @id > 0)
     BEGIN
         UPDATE dbo.tAgents
-        SET noms = @noms, contact = @contact, fonction = @fonction, role = @role, username = @username, [password] = @pwd, refSalle = @refSalle
+        SET noms = @noms, contact = @contact, role = @role, username = @username, [password] = @pwd, refSalle = @refSalle
         WHERE id = @id;
     END
     ELSE
     BEGIN
-        INSERT INTO dbo.tAgents (noms, contact, fonction, role, username, [password], refSalle)
-        VALUES (@noms, @contact, @fonction, @role, @username, @pwd, @refSalle);
+        INSERT INTO dbo.tAgents (noms, contact, role, username, [password], refSalle)
+        VALUES (@noms, @contact, @role, @username, @pwd, @refSalle);
     END
 END
 GO
@@ -615,7 +603,6 @@ SELECT
     a.id AS numero,
     a.noms AS Noms,
     a.contact AS Telephone,
-    a.fonction AS Fonction,
     a.role AS Role,
     a.username AS Username,
     a.[password] AS [Mot de Passe],

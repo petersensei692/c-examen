@@ -107,12 +107,6 @@
     <Compile Include="Formulaires\FrmAgent.Designer.cs">
       <DependentUpon>FrmAgent.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formulaires\FrmBillet.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formulaires\FrmBillet.Designer.cs">
-      <DependentUpon>FrmBillet.cs</DependentUpon>
-    </Compile>
     <Compile Include="Formulaires\FrmVente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,12 +124,6 @@
     </Compile>
     <Compile Include="Formulaires\FrmDashboard.Designer.cs">
       <DependentUpon>FrmDashboard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Formulaires\FrmFacture.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formulaires\FrmFacture.Designer.cs">
-      <DependentUpon>FrmFacture.cs</DependentUpon>
     </Compile>
     <Compile Include="Formulaires\FrmLogin.cs">
       <SubType>Form</SubType>
@@ -179,9 +167,6 @@
     <EmbeddedResource Include="Formulaires\FrmAgent.resx">
       <DependentUpon>FrmAgent.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formulaires\FrmBillet.resx">
-      <DependentUpon>FrmBillet.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Formulaires\FrmVente.resx">
       <DependentUpon>FrmVente.cs</DependentUpon>
     </EmbeddedResource>
@@ -190,9 +175,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formulaires\FrmDashboard.resx">
       <DependentUpon>FrmDashboard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formulaires\FrmFacture.resx">
-      <DependentUpon>FrmFacture.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formulaires\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>

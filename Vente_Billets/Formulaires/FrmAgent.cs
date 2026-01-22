@@ -46,7 +46,7 @@ namespace Vente_Billets.Formulaires
         private void CleanTextAgent()
         {
             txtContactAgent.Text = "";
-            txtFoctionAgent.Text = "";
+            cmbRoleAgent.Text = "";
             cmbSalleAgent.Text = "";
             txtNomAgent.Text = "";
             txtUserNameAgent.Text = "";
@@ -60,7 +60,7 @@ namespace Vente_Billets.Formulaires
         {
             ag.Noms = txtNomAgent.Text;
             ag.Contact = txtContactAgent.Text;
-            ag.Fonction = txtFoctionAgent.Text;
+            ag.Role = cmbRoleAgent.Text; // Utiliser le ComboBox pour le role
             ag.Username = txtUserNameAgent.Text;
             ag.Password = txtPasswordAgents.Text;
             ag.RefSalle = ClsDict.Instance.getcode_Combo("tSalle", "id", "nomSalle", cmbSalleAgent.Text);
@@ -133,8 +133,8 @@ namespace Vente_Billets.Formulaires
                     if (row.Cells["Telephone"] != null && row.Cells["Telephone"].Value != null)
                         txtContactAgent.Text = row.Cells["Telephone"].Value.ToString();
                     
-                    if (row.Cells["Fonction"] != null && row.Cells["Fonction"].Value != null)
-                        txtFoctionAgent.Text = row.Cells["Fonction"].Value.ToString();
+                    if (row.Cells["Role"] != null && row.Cells["Role"].Value != null)
+                        cmbRoleAgent.Text = row.Cells["Role"].Value.ToString();
                     
                     if (row.Cells["Username"] != null && row.Cells["Username"].Value != null)
                         txtUserNameAgent.Text = row.Cells["Username"].Value.ToString();
@@ -165,9 +165,5 @@ namespace Vente_Billets.Formulaires
             dgvAgents.DataSource = ClsDict.Instance.Rechercher(txtRecherche.Text.Trim(), "Affichez_Agent", "Noms");
         }
 
-        private void txtFoctionAgent_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -302,6 +302,7 @@ namespace Vente_Billets.Formulaires
             this.Text = "FrmDashboard";
             this.Load += new System.EventHandler(this.FrmDashboard_Load);
             this.Shown += new System.EventHandler(this.FrmDashboard_Shown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmDashboard_FormClosing);
             this.panelHaut.ResumeLayout(false);
             this.ResumeLayout(false);
 

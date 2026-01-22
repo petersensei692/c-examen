@@ -24,7 +24,9 @@ namespace Vente_Billets
 
         private void Form1_Load(object sender, EventArgs e)
         {
-              
+            // S'assurer que Form1 n'est jamais visible
+            this.Hide();
+            this.Visible = false;
         }
 
         

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vente_Billets.Classes;
 
 namespace Vente_Billets.Formulaires
 {
@@ -37,6 +38,13 @@ namespace Vente_Billets.Formulaires
 
         private void ChargerFormulaire(Form form)
         {
+            // Disposer proprement du formulaire actif avant d'en charger un nouveau
+            if (formulaireActif != null)
+            {
+                formulaireActif.Hide();
+                formulaireActif.Dispose();
+            }
+            
             panelAffichage.Controls.Clear();
 
             formulaireActif = form; // <<<<< On mémorise le form actif
@@ -160,6 +168,69 @@ namespace Vente_Billets.Formulaires
         private void panelGauche_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void FrmDashboard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Disposer proprement du formulaire actif
+            if (formulaireActif != null)
+            {
+                try
+                {
+                    formulaireActif.Hide();
+                    formulaireActif.Dispose();
+                }
+                catch { }
+                formulaireActif = null;
+            }
+            
+            // Disposer de tous les contrôles dans le panel
+            try
+            {
+                // Créer une liste temporaire pour éviter les modifications pendant l'itération
+                List<Control> controlsToDispose = new List<Control>();
+                foreach (Control control in panelAffichage.Controls)
+                {
+                    controlsToDispose.Add(control);
+                }
+                
+                foreach (Control control in controlsToDispose)
+                {
+                    if (control is Form)
+                    {
+                        try
+                        {
+                            ((Form)control).Hide();
+                            ((Form)control).Dispose();
+                        }
+                        catch { }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            control.Dispose();
+                        }
+                        catch { }
+                    }
+                }
+                panelAffichage.Controls.Clear();
+            }
+            catch { }
+            
+            // Fermer toutes les connexions à la base de données
+            try
+            {
+                if (ClsDict.Instance != null)
+                {
+                    ClsDict.Instance.CloseConnection();
+                }
+            }
+            catch { }
+            
+            // Fermer proprement l'application quand le dashboard se ferme
+            // Cela fermera aussi le formulaire de login qui est caché
+            Application.Exit();
         }
     }
 }

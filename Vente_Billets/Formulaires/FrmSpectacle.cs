@@ -25,14 +25,26 @@ namespace Vente_Billets.Formulaires
                 ClsSpectacle.ChargementSpectacle(dgvSpectacle, txtIdSpectacle, lblId, cmbSpectacle);
             }
             
+            // Définir la date minimum à demain
+            DateSpectacle.MinDate = DateTime.Now.Date.AddDays(1);
         }
 
         ClsSpectacle spect = new ClsSpectacle();
 
         private void InsertUpdateSpectacle(int a)
         {
+            // Validation de la date du spectacle (minimum demain)
+            DateTime dateSpectacle = DateTime.Parse(DateSpectacle.Text);
+            DateTime dateMinimum = DateTime.Now.Date.AddDays(1); // Demain à minuit
+            
+            if (dateSpectacle.Date < dateMinimum)
+            {
+                MessageBox.Show($"La date du spectacle ne peut pas être antérieure à demain ({dateMinimum:dd/MM/yyyy}).", "Erreur de validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             spect.Titre = txtTitre.Text;
-            spect.DateSpectacle = DateTime.Parse(DateSpectacle.Text);
+            spect.DateSpectacle = dateSpectacle;
             spect.NombreBillet = int.Parse(txtNbrBillet.Text);
             spect.Duree = txtDuree.Text;
             spect.DescSpect = txtDescSpect.Text;

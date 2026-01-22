@@ -42,7 +42,7 @@ namespace Vente_Billets.Formulaires
             this.label12 = new System.Windows.Forms.Label();
             this.txtUserNameAgent = new Guna.UI2.WinForms.Guna2TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.txtFoctionAgent = new Guna.UI2.WinForms.Guna2TextBox();
+            this.cmbRoleAgent = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtContactAgent = new Guna.UI2.WinForms.Guna2TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -219,34 +219,33 @@ namespace Vente_Billets.Formulaires
             this.label13.TabIndex = 68;
             this.label13.Text = "Username";
             // 
-            // txtFoctionAgent
+            // cmbRoleAgent
             // 
-            this.txtFoctionAgent.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtFoctionAgent.DefaultText = "";
-            this.txtFoctionAgent.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtFoctionAgent.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtFoctionAgent.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtFoctionAgent.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtFoctionAgent.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtFoctionAgent.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtFoctionAgent.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtFoctionAgent.Location = new System.Drawing.Point(871, 92);
-            this.txtFoctionAgent.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.txtFoctionAgent.Name = "txtFoctionAgent";
-            this.txtFoctionAgent.PlaceholderText = "";
-            this.txtFoctionAgent.SelectedText = "";
-            this.txtFoctionAgent.Size = new System.Drawing.Size(306, 30);
-            this.txtFoctionAgent.TabIndex = 67;
-            this.txtFoctionAgent.TextChanged += new System.EventHandler(this.txtFoctionAgent_TextChanged);
+            this.cmbRoleAgent.BackColor = System.Drawing.Color.Transparent;
+            this.cmbRoleAgent.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbRoleAgent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRoleAgent.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbRoleAgent.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbRoleAgent.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbRoleAgent.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cmbRoleAgent.ItemHeight = 30;
+            this.cmbRoleAgent.Items.AddRange(new object[] {
+            "Admin",
+            "Vendeur"});
+            this.cmbRoleAgent.Location = new System.Drawing.Point(871, 92);
+            this.cmbRoleAgent.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.cmbRoleAgent.Name = "cmbRoleAgent";
+            this.cmbRoleAgent.Size = new System.Drawing.Size(306, 36);
+            this.cmbRoleAgent.TabIndex = 67;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(868, 70);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(58, 16);
+            this.label10.Size = new System.Drawing.Size(35, 16);
             this.label10.TabIndex = 66;
-            this.label10.Text = "Fonction";
+            this.label10.Text = "Role";
             // 
             // txtContactAgent
             // 
@@ -397,7 +396,7 @@ namespace Vente_Billets.Formulaires
             this.Controls.Add(this.label12);
             this.Controls.Add(this.txtUserNameAgent);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.txtFoctionAgent);
+            this.Controls.Add(this.cmbRoleAgent);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtContactAgent);
             this.Controls.Add(this.label9);
@@ -430,7 +429,7 @@ namespace Vente_Billets.Formulaires
         private System.Windows.Forms.Label label12;
         private Guna.UI2.WinForms.Guna2TextBox txtUserNameAgent;
         private System.Windows.Forms.Label label13;
-        private Guna.UI2.WinForms.Guna2TextBox txtFoctionAgent;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbRoleAgent;
         private System.Windows.Forms.Label label10;
         private Guna.UI2.WinForms.Guna2TextBox txtContactAgent;
         private System.Windows.Forms.Label label9;

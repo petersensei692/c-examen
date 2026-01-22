@@ -52,6 +52,8 @@ namespace Vente_Billets
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Visible = false; // S'assurer que Form1 n'est jamais visible
+            this.ShowInTaskbar = false; // Ne pas afficher dans la barre des tâches
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 

@@ -38,6 +38,28 @@ namespace Vente_Billets.Formulaires
                 }
                 
                 ClsDict.Instance.loadComboBillets(cmbClient); // Utiliser cmbClient pour stocker le Billet
+                
+                // Définir la date minimum à aujourd'hui
+                DatePaie.MinDate = DateTime.Now.Date;
+                
+                // Ajouter un handler pour mettre à jour le montant quand un billet est sélectionné
+                cmbClient.SelectedIndexChanged += CmbClient_SelectedIndexChanged;
+            }
+        }
+        
+        private void CmbClient_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbClient.SelectedItem != null && !string.IsNullOrEmpty(cmbClient.Text))
+            {
+                int billetId = ClsDict.Instance.GetBilletIdFromDisplayText(cmbClient.Text);
+                if (billetId > 0)
+                {
+                    double? prix = ClsDict.Instance.GetPrixFromBillet(billetId);
+                    if (prix.HasValue)
+                    {
+                        txtMontant.Text = prix.Value.ToString("F2");
+                    }
+                }
             }
         }
 
@@ -45,9 +67,17 @@ namespace Vente_Billets.Formulaires
 
         private void InsertUpdatePaiement(int a)
         {
+            // Validation de la date de paiement (ne peut pas être dans le passé)
+            DateTime datePaiement = DateTime.Parse(DatePaie.Text);
+            if (datePaiement.Date < DateTime.Now.Date)
+            {
+                MessageBox.Show("La date de paiement ne peut pas être antérieure à aujourd'hui.", "Erreur de validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             paie.ModePaiement = cmbModePaie.Text;
             paie.Montant = double.Parse(txtMontant.Text);
-            paie.DatePaiement = DateTime.Parse(DatePaie.Text);
+            paie.DatePaiement = datePaiement; // Utiliser la date validée
             paie.RefAgent = FrmDashboard.LoggedInAgentId; // Utiliser l'agent connecté
             
             // Récupérer l'ID du billet depuis le texte affiché

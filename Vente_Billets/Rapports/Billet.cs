@@ -71,23 +71,81 @@ namespace Vente_Billets.Rapports
                 g.DrawString("BILLET", titleFont, Brushes.Black, leftMargin, yPos);
                 yPos += lineHeight * 2;
 
-                // Informations du billet (exclure le champ "statut" et les colonnes "ref")
-                foreach (DataColumn column in data.Columns)
+                // Afficher les informations du billet dans un ordre spécifique
+                // Ignorer le champ "statut" et les colonnes qui commencent par "ref"
+                
+                // ID
+                if (row["id"] != DBNull.Value)
                 {
-                    // Ignorer le champ "statut" et les colonnes qui commencent par "ref"
-                    if (column.ColumnName.Equals("statut", StringComparison.OrdinalIgnoreCase) ||
-                        column.ColumnName.StartsWith("ref", StringComparison.OrdinalIgnoreCase))
-                        continue;
-
-                    if (row[column.ColumnName] != DBNull.Value)
-                    {
-                        string label = column.ColumnName.Replace("_", " ");
-                        string value = row[column.ColumnName].ToString();
-                        
-                        g.DrawString(label + ":", boldFont, Brushes.Black, leftMargin, yPos);
-                        g.DrawString(value, normalFont, Brushes.Black, leftMargin + 200, yPos);
-                        yPos += lineHeight;
-                    }
+                    g.DrawString("id:", boldFont, Brushes.Black, leftMargin, yPos);
+                    g.DrawString(row["id"].ToString(), normalFont, Brushes.Black, leftMargin + 200, yPos);
+                    yPos += lineHeight;
+                }
+                
+                // Prix
+                if (row["prix"] != DBNull.Value)
+                {
+                    g.DrawString("prix:", boldFont, Brushes.Black, leftMargin, yPos);
+                    g.DrawString(row["prix"].ToString(), normalFont, Brushes.Black, leftMargin + 200, yPos);
+                    yPos += lineHeight;
+                }
+                
+                // Date d'achat (date actuelle de l'achat)
+                if (row["dateAchat"] != DBNull.Value)
+                {
+                    DateTime dateAchat = Convert.ToDateTime(row["dateAchat"]);
+                    g.DrawString("dateAchat:", boldFont, Brushes.Black, leftMargin, yPos);
+                    g.DrawString(dateAchat.ToString("dd/MM/yyyy HH:mm"), normalFont, Brushes.Black, leftMargin + 200, yPos);
+                    yPos += lineHeight;
+                }
+                
+                // Spectacle
+                if (row["Spectacle"] != DBNull.Value)
+                {
+                    g.DrawString("Spectacle:", boldFont, Brushes.Black, leftMargin, yPos);
+                    g.DrawString(row["Spectacle"].ToString(), normalFont, Brushes.Black, leftMargin + 200, yPos);
+                    yPos += lineHeight;
+                }
+                
+                // Date du Spectacle (date réelle du spectacle)
+                if (row["Date du Spectacle"] != DBNull.Value)
+                {
+                    DateTime dateSpectacle = Convert.ToDateTime(row["Date du Spectacle"]);
+                    g.DrawString("Date du Spectacle:", boldFont, Brushes.Black, leftMargin, yPos);
+                    g.DrawString(dateSpectacle.ToString("dd/MM/yyyy HH:mm"), normalFont, Brushes.Black, leftMargin + 200, yPos);
+                    yPos += lineHeight;
+                }
+                
+                // Client
+                if (row["Client"] != DBNull.Value)
+                {
+                    g.DrawString("Client:", boldFont, Brushes.Black, leftMargin, yPos);
+                    g.DrawString(row["Client"].ToString(), normalFont, Brushes.Black, leftMargin + 200, yPos);
+                    yPos += lineHeight;
+                }
+                
+                // Agent
+                if (row["Agent"] != DBNull.Value)
+                {
+                    g.DrawString("Agent:", boldFont, Brushes.Black, leftMargin, yPos);
+                    g.DrawString(row["Agent"].ToString(), normalFont, Brushes.Black, leftMargin + 200, yPos);
+                    yPos += lineHeight;
+                }
+                
+                // Numero Place
+                if (row["Numero Place"] != DBNull.Value)
+                {
+                    g.DrawString("Numero Place:", boldFont, Brushes.Black, leftMargin, yPos);
+                    g.DrawString(row["Numero Place"].ToString(), normalFont, Brushes.Black, leftMargin + 200, yPos);
+                    yPos += lineHeight;
+                }
+                
+                // Salle
+                if (row["Salle"] != DBNull.Value)
+                {
+                    g.DrawString("Salle:", boldFont, Brushes.Black, leftMargin, yPos);
+                    g.DrawString(row["Salle"].ToString(), normalFont, Brushes.Black, leftMargin + 200, yPos);
+                    yPos += lineHeight;
                 }
 
                 // Ligne de séparation

@@ -46,6 +46,13 @@ namespace Vente_Billets.Classes
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             // Utiliser la vue Affichez_Billet pour être cohérent avec le code de CellClick
             dgv.DataSource = ClsDict.Instance.loadData("Affichez_Billet");
+            
+            // Cacher la colonne "statut" si elle existe
+            if (dgv.Columns.Contains("statut"))
+            {
+                dgv.Columns["statut"].Visible = false;
+            }
+            
             txtId.Visible = true;
             lblId.Visible = true;
             

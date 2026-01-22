@@ -39,11 +39,12 @@ namespace Vente_Billets.Formulaires
                     frm.UserRole = role;
                     FrmDashboard.LoggedInAgentId = agent.Id; // Stocker l'ID de l'agent connecté
                     
-                    if (role == "Gerant")
+                    // Vérifier le rôle (Admin ou Vendeur)
+                    if (role == "Admin" || role == "Gerant")
                     {
                         // Tous les boutons sont activés par défaut
-                        frm.Show();
-                        this.Hide();
+                        this.Hide(); // Cacher le formulaire de login
+                        frm.Show(); // Afficher le dashboard
                     }
                     else if (role == "Vendeur")
                     {
@@ -53,12 +54,12 @@ namespace Vente_Billets.Formulaires
                         frm.guna2Button3.Enabled = false; // Salles
                         frm.guna2Button4.Enabled = false; // Spectacles
                         frm.guna2Button5.Enabled = false; // Places
-                        frm.Show();
-                        this.Hide();
+                        this.Hide(); // Cacher le formulaire de login
+                        frm.Show(); // Afficher le dashboard
                     }
                     else
                     {
-                        MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show($"Rôle non reconnu: {role}. Veuillez contacter l'administrateur.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 else

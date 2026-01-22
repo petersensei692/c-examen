@@ -27,7 +27,9 @@ namespace Vente_Billets.Formulaires
             {
                 ClsBillets.ChargementBillets(dgvBillet, txtIdBillet, id);
                 ClsDict.Instance.loadCombo("tSpectacle", "titre", cmbSpectacle);
-                ClsDict.Instance.loadCombo("tPlace", "numPlace", cmbPlace);
+                // Ne pas charger les places au départ - elles seront chargées quand un spectacle est sélectionné
+                cmbPlace.Items.Clear();
+                cmbPlace.Enabled = false;
                 ClsDict.Instance.loadCombo("tClients", "noms", cmbClient);
                 
                 // Auto-remplir l'agent connecté
@@ -42,6 +44,9 @@ namespace Vente_Billets.Formulaires
                     }
                 }
                 
+                // Définir la date minimum à aujourd'hui
+                DateAchat.MinDate = DateTime.Now.Date;
+                
                 // Ajouter un handler pour mettre à jour la date du spectacle quand un spectacle est sélectionné
                 cmbSpectacle.SelectedIndexChanged += CmbSpectacle_SelectedIndexChanged;
             }
@@ -52,11 +57,38 @@ namespace Vente_Billets.Formulaires
             if (cmbSpectacle.SelectedItem != null && !string.IsNullOrEmpty(cmbSpectacle.Text))
             {
                 int spectacleId = int.Parse(ClsDict.Instance.getcode_Combo("tSpectacle", "id", "titre", cmbSpectacle.Text));
-                DateTime? dateSpectacle = ClsDict.Instance.GetDateSpectacleFromId(spectacleId);
-                if (dateSpectacle.HasValue)
+                
+                // Ne pas modifier la date d'achat automatiquement - elle doit rester la date actuelle
+                // La date du spectacle sera récupérée depuis la base de données lors de l'impression
+                
+                // Charger les places de la salle du spectacle sélectionné
+                int? salleId = ClsDict.Instance.GetSalleIdFromSpectacle(spectacleId);
+                if (salleId.HasValue)
                 {
-                    DateAchat.Value = dateSpectacle.Value;
+                    // Si on modifie un billet existant, inclure sa place dans la liste
+                    int? billetId = null;
+                    if (!string.IsNullOrWhiteSpace(txtIdBillet.Text) && int.TryParse(txtIdBillet.Text, out int id))
+                    {
+                        billetId = id;
+                    }
+                    ClsDict.Instance.loadComboPlacesBySalle(salleId.Value, cmbPlace, billetId);
+                    cmbPlace.Enabled = true;
+                    // Ne pas réinitialiser la sélection si on modifie un billet existant
+                    if (!billetId.HasValue)
+                    {
+                        cmbPlace.Text = "";
+                    }
                 }
+                else
+                {
+                    cmbPlace.Items.Clear();
+                    cmbPlace.Enabled = false;
+                }
+            }
+            else
+            {
+                cmbPlace.Items.Clear();
+                cmbPlace.Enabled = false;
             }
         }
 
@@ -89,8 +121,17 @@ namespace Vente_Billets.Formulaires
                 return;
             }
 
+            // Validation de la date d'achat (ne peut pas être dans le passé)
+            DateTime dateAchat = DateAchat.Value;
+            if (dateAchat.Date < DateTime.Now.Date)
+            {
+                MessageBox.Show("La date d'achat ne peut pas être antérieure à aujourd'hui.", "Erreur de validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Utiliser la date actuelle pour la date d'achat (pas la date du spectacle)
             bi.Prix = double.Parse(txtPrix.Text);
-            bi.DateAchat = DateAchat.Value; // Utiliser la date du spectacle
+            bi.DateAchat = DateTime.Now; // Utiliser la date actuelle pour la date d'achat
             bi.RefAgent1 = FrmDashboard.LoggedInAgentId; // Utiliser l'agent connecté
             
             // Récupérer le client depuis le combobox
@@ -227,7 +268,22 @@ namespace Vente_Billets.Formulaires
                         txtPrix.Text = row.Cells["prix"].Value.ToString();
                     
                     if (row.Cells["Spectacle"] != null && row.Cells["Spectacle"].Value != null)
+                    {
                         cmbSpectacle.Text = row.Cells["Spectacle"].Value.ToString();
+                        // Charger les places de la salle du spectacle (inclure la place du billet en cours de modification)
+                        int spectacleId = int.Parse(ClsDict.Instance.getcode_Combo("tSpectacle", "id", "titre", cmbSpectacle.Text));
+                        int? salleId = ClsDict.Instance.GetSalleIdFromSpectacle(spectacleId);
+                        if (salleId.HasValue)
+                        {
+                            int? billetId = null;
+                            if (!string.IsNullOrWhiteSpace(txtIdBillet.Text) && int.TryParse(txtIdBillet.Text, out int id))
+                            {
+                                billetId = id;
+                            }
+                            ClsDict.Instance.loadComboPlacesBySalle(salleId.Value, cmbPlace, billetId);
+                            cmbPlace.Enabled = true;
+                        }
+                    }
                     
                     if (row.Cells["Numero_Place"] != null && row.Cells["Numero_Place"].Value != null)
                         cmbPlace.Text = row.Cells["Numero_Place"].Value.ToString();
@@ -251,15 +307,9 @@ namespace Vente_Billets.Formulaires
                         cmbClient.Text = "";
                     }
 
-                    // Mettre à jour la date du spectacle si disponible
-                    if (row.Cells["Date du Spectacle"] != null && row.Cells["Date du Spectacle"].Value != null && row.Cells["Date du Spectacle"].Value != DBNull.Value)
-                    {
-                        DateTime dateSpectacle;
-                        if (DateTime.TryParse(row.Cells["Date du Spectacle"].Value.ToString(), out dateSpectacle))
-                        {
-                            DateAchat.Value = dateSpectacle;
-                        }
-                    }
+                    // Ne pas modifier la date d'achat avec la date du spectacle
+                    // La date d'achat doit rester celle du billet (dateAchat)
+                    // La date du spectacle sera affichée séparément dans le billet imprimé
 
                     txtIdBillet.Visible = true;
                     id.Visible = true;

@@ -28,6 +28,11 @@ namespace Vente_Billets.Classes
         SqlCommand cmd = null;
         private SqlDataAdapter dt;
         private SqlDataReader dr;
+        
+        // Constructeur privé pour le singleton
+        private ClsDict()
+        {
+        }
 
         public bool OpenConnection()
         {
@@ -47,6 +52,30 @@ namespace Vente_Billets.Classes
             {
                 MessageBox.Show("Erreur de connexion : " + ex.Message);
                 return false;
+            }
+        }
+
+        public void CloseConnection()
+        {
+            try
+            {
+                if (con != null && con.State == System.Data.ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                if (dr != null && !dr.IsClosed)
+                {
+                    dr.Close();
+                }
+                if (cmd != null)
+                {
+                    cmd.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Ignorer les erreurs lors de la fermeture
+                System.Diagnostics.Debug.WriteLine("Erreur lors de la fermeture de la connexion : " + ex.Message);
             }
         }
 
@@ -76,8 +105,8 @@ namespace Vente_Billets.Classes
                 if (!con.State.ToString().ToLower().Equals("open")) con.Open();
                 cmd.Parameters.AddWithValue("@id", Ag.Id);
                 cmd.Parameters.AddWithValue("@noms", Ag.Noms);
-                cmd.Parameters.AddWithValue("@fonction", Ag.Fonction);
-                cmd.Parameters.AddWithValue("@role", Ag.Role ?? Ag.Fonction); // Utilise Role si disponible, sinon Fonction comme fallback
+                cmd.Parameters.AddWithValue("@fonction", ""); // Paramètre conservé pour compatibilité mais non utilisé
+                cmd.Parameters.AddWithValue("@role", Ag.Role ?? ""); // Utiliser Role
                 cmd.Parameters.AddWithValue("@contact", Ag.Contact);
                 cmd.Parameters.AddWithValue("@username", Ag.Username);
                 cmd.Parameters.AddWithValue("@pwd", Ag.Password);
@@ -517,6 +546,84 @@ namespace Vente_Billets.Classes
             }
             return 0;
         }
+        
+        public double? GetPrixFromBillet(int billetId)
+        {
+            string query = @"SELECT prix FROM tBillets WHERE id = @billetId";
+            using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
+            {
+                if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+                cmd.Parameters.AddWithValue("@billetId", billetId);
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    return Convert.ToDouble(result);
+                }
+                return null;
+            }
+        }
+        
+        public int? GetSalleIdFromSpectacle(int spectacleId)
+        {
+            string query = @"SELECT refSalle FROM tSpectacle WHERE id = @spectacleId";
+            using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
+            {
+                if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+                cmd.Parameters.AddWithValue("@spectacleId", spectacleId);
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    return (int)result;
+                }
+                return null;
+            }
+        }
+        
+        public void loadComboPlacesBySalle(int salleId, System.Windows.Forms.ComboBox comb1, int? billetIdExclu = null)
+        {
+            if (!con.State.ToString().ToLower().Equals("open")) con.Open();
+            // Exclure les places déjà utilisées par des billets existants (sauf le billet en cours de modification)
+            string query;
+            if (billetIdExclu.HasValue && billetIdExclu.Value > 0)
+            {
+                // Si on modifie un billet, inclure sa place dans la liste
+                query = @"SELECT p.id, p.numPlace 
+                         FROM tPlace p
+                         WHERE p.refSalle = @salleId 
+                         AND (p.id NOT IN (SELECT DISTINCT RefPlace FROM tBillets WHERE RefPlace IS NOT NULL AND id != @billetIdExclu)
+                              OR p.id IN (SELECT RefPlace FROM tBillets WHERE id = @billetIdExclu))
+                         ORDER BY p.numPlace";
+            }
+            else
+            {
+                // Si on crée un nouveau billet, exclure toutes les places déjà utilisées
+                query = @"SELECT p.id, p.numPlace 
+                         FROM tPlace p
+                         WHERE p.refSalle = @salleId 
+                         AND p.id NOT IN (SELECT DISTINCT RefPlace FROM tBillets WHERE RefPlace IS NOT NULL)
+                         ORDER BY p.numPlace";
+            }
+            
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.AddWithValue("@salleId", salleId);
+                if (billetIdExclu.HasValue && billetIdExclu.Value > 0)
+                {
+                    cmd.Parameters.AddWithValue("@billetIdExclu", billetIdExclu.Value);
+                }
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt1 = new DataTable();
+                    adapter.Fill(dt1);
+                    comb1.Items.Clear();
+                    foreach (DataRow dr in dt1.Rows)
+                    {
+                        comb1.Items.Add(dr["numPlace"].ToString());
+                    }
+                }
+            }
+            con.Close();
+        }
 
         public string getcode_Combo(string nomTable, string nomChampId, string nomChamp, string valeur)
         {
@@ -584,7 +691,8 @@ namespace Vente_Billets.Classes
         {
 
             if (con.State != ConnectionState.Open) con.Open();
-            string query = "SELECT * FROM tAgents WHERE username = @username AND [password] = @mdp";
+            // Spécifier explicitement les colonnes pour éviter les problèmes avec la colonne "fonction" supprimée
+            string query = "SELECT id, noms, contact, role, username, [password], refSalle FROM tAgents WHERE username = @username AND [password] = @mdp";
 
             using (SqlCommand cmd = new SqlCommand(query, ClsDict.Instance.con))
             {
@@ -599,11 +707,12 @@ namespace Vente_Billets.Classes
                         {
                             Id = (int)reader["id"],
                             Noms = reader["noms"].ToString(),
-                            Contact = reader["contact"].ToString(),
-                            Fonction = reader["fonction"].ToString(),
+                            Contact = reader["contact"] != DBNull.Value ? reader["contact"].ToString() : "",
+                            Fonction = "", // Colonne supprimée, laisser vide
+                            Role = reader["role"] != DBNull.Value ? reader["role"].ToString() : "",
                             Username = reader["username"].ToString(),
                             Password = reader["password"].ToString(),
-                            RefSalle = reader["refSalle"].ToString(),
+                            RefSalle = reader["refSalle"] != DBNull.Value ? reader["refSalle"].ToString() : "",
                             
                         };
 
