@@ -1,10 +1,3 @@
--- =============================================
--- Script de Migration Complète - Base de Données EXAMEN
--- Système de Gestion de Vente de Billets
--- =============================================
--- Ce script recrée toutes les tables, procédures stockées, vues et données
--- Exécuter ce script sur une base de données vide ou existante
--- =============================================
 
 USE [EXAMEN]
 GO
